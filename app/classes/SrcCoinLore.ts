@@ -9,7 +9,6 @@ export default class SrcCoinLore{
     resourceAllTickers: string;
 
     resourceGlobalCoins:string;
-    coins: SymbolDescription[] = [];
 
     constructor(){
         this.baseEndpoint = "https://api.coinlore.net/api/";
@@ -37,20 +36,23 @@ export default class SrcCoinLore{
 
         var coinsCount = +resultGlobalCoinsData[0].coins_count;
         console.log("Total Coins count is "+coinsCount);
-        
+
         var pages = coinsCount - (coinsCount % 100);
 
-        var symbolNamesArr:SymbolDescription[] = [];
+        var symbolNamesArr:string[] = [];
 
         for(let i = 0; i <= pages; i+=100){
             var result = await this.getAllSymbolData("?start="+i+"&limit=100");
             
             (result.data).forEach((element: any) => {
-                symbolNamesArr.push(new SymbolDescription(
+
+                var symbDetails = new SymbolDescription(
                     element.id,
                     element.symbol,
                     element.name
-                ));        
+                );
+
+                symbolNamesArr.push(JSON.stringify(symbDetails));        
             });
 
         }

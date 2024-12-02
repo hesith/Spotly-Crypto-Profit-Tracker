@@ -1,9 +1,14 @@
 import { Text, View } from "react-native";
 import CoinDataManager from "./classes/CoinDataManager";
+import asyncStorageService from "./services/asyncStorageService";
 
 export default function Index() {
   
-  CoinDataManager.updateCoinDatabase();
+  asyncStorageService.storeData("test","testval");
+  console.log(asyncStorageService.readData("test"));
+
+  //CoinDataManager.updateCoinDatabaseFromLocal();
+  //CoinDataManager.updateCoinDatabase();
 
   return (
     <View
