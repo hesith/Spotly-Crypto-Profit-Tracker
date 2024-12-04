@@ -1,24 +1,44 @@
-import { Text, View } from "react-native";
+
+import { useEffect, useState } from "react";
 import CoinDataManager from "./classes/CoinDataManager";
-import asyncStorageService from "./services/asyncStorageService";
+import Configurations from "./classes/Configurations";
+import Home from "./components/Home";
+import LoadingIndicator from "./components/LoadingIndicator";
 
 export default function Index() {
   
-  asyncStorageService.storeData("test","testval");
-  console.log(asyncStorageService.readData("test"));
+  ConfigureCoinData()
 
-  //CoinDataManager.updateCoinDatabaseFromLocal();
-  //CoinDataManager.updateCoinDatabase();
+  const [coinSource, setCoinSource] = useState<any>();
 
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
-  );
+  useEffect(() => {
+    const LoadCoinSource = async () => {
+      var coinSource = await CoinDataManager.retrieveFromCoinsDatabase();
+      setCoinSource(coinSource);
+    }
+    LoadCoinSource()  
+  }, []);
+
+  if(coinSource != undefined)
+  {
+    return <Home></Home> 
+  }
+
+  return <LoadingIndicator></LoadingIndicator> 
+
+}
+
+async function ConfigureCoinData(){
+
+  if(await Configurations.isFirstTime() == null)
+  {
+    console.log("First login to application.")
+    Configurations.isFirstTime('false');
+    CoinDataManager.updateCoinDatabaseFromLocal(); 
+  }
+  else
+  {
+    console.log("Login to application.")
+    //CoinDataManager.updateCoinSource(); 
+  }
 }

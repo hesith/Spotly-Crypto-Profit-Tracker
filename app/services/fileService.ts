@@ -13,7 +13,18 @@ export default class fileService{
         {
             var content = data;
       
-            return await FileSystem.writeAsStringAsync(this.coinsDataFilePath, content);
+            console.log("Writing to file.. ("+this.coinsDataFilePath+")");
+
+            return await FileSystem.writeAsStringAsync(this.coinsDataFilePath, content)
+            .then(()=>{
+                console.log("Write successful. (File : "+this.coinsDataFilePath+")");
+            },
+            (error)=>{
+                console.log("Write unsuccessful, ("+error+")");
+            })
+            .catch(e=>{
+                console.log(e);
+            });
 
         } 
         catch (error) 
@@ -25,9 +36,10 @@ export default class fileService{
     static async readFromCoinsFile(){
         try
         {
+            console.log("Reading from : ", this.coinsDataFilePath);
             var content = await FileSystem.readAsStringAsync(this.coinsDataFilePath);
             
-            var contentList = new List<any>(JSON.parse(content));
+            var contentList = new List<any>(JSON.parse(await content));
 
             //console.log(contentList.where(i => JSON.parse(i).id == 32802));
 
@@ -43,6 +55,7 @@ export default class fileService{
     static async readFromCoinsInitialFile(){
         try
         {     
+            console.log("Reading from Coins Initial file...")
             var content = await JSON.stringify(coinsInitial.data);
 
             return(await content);

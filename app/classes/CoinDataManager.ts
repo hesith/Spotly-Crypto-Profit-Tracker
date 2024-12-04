@@ -12,7 +12,8 @@ export default class CoinDataManager{
         var data = await srcObj.getAllSymbolNameData();
 
         fileService.writeToCoinsFile(JSON.stringify(await data)).then(() =>{
-            this.updateCoinSource()
+            console.log("Update successful")
+            //this.updateCoinSource()
         },
         ()=>{
             console.log("Update unsuccessful")
@@ -30,7 +31,8 @@ export default class CoinDataManager{
         }
 
         fileService.writeToCoinsFile(await data).then(() =>{
-            this.updateCoinSource()
+            console.log("Update successful")
+            //this.updateCoinSource()
         },
         ()=>{
             console.log("Update unsuccessful")
@@ -44,7 +46,8 @@ export default class CoinDataManager{
         return fileService.readFromCoinsFile();
     }
 
-    static async updateCoinSource(){
-        this.coinSource = await this.retrieveFromCoinsDatabase();
-    }
+    // static async updateCoinSource(){
+    //     this.coinSource = await this.retrieveFromCoinsDatabase();
+    //     console.log("Updated Coin Source. Its a "+this.coinSource?.length+" element List.")
+    // }
 }

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "CryptoInvestmentManager",
-    "slug": "CryptoInvestmentManager",
+    "name": "Spotly - Crypto Profit Tracker",
+    "slug": "SpotlyCryptoProfitTracker",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -15,7 +15,9 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "versionCode": 1,
+      "package": "com.phantomHookLabs.SpotCryptoProfitTracker"
     },
     "web": {
       "bundler": "metro",
@@ -23,10 +25,26 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#232323",
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 200
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "75407041-6c94-4c3b-9089-d928bb66e33b"
+      }
     }
   }
 }
