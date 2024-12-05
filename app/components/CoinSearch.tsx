@@ -1,20 +1,12 @@
 import { Autocomplete, AutocompleteItem, Icon, IconElement, Input } from "@ui-kitten/components";
-import { Button, useWindowDimensions } from "react-native";
+import { Button, useWindowDimensions, View } from "react-native";
 import { styles } from "../styles";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CoinDataManager from "../classes/CoinDataManager";
 import { List } from "ts-generic-collections-linq";
+import { opacity } from "react-native-reanimated/lib/typescript/Colors";
 
-function renderOption(item: any, index: any){
-  return(
-  <>
-  <AutocompleteItem
-    key={index}
-    title={JSON.parse(item).symbol}
-  />
-  </>
-  )
-};
+
 
 export default function CoinSearch(){
     const layout = useWindowDimensions();
@@ -22,10 +14,15 @@ export default function CoinSearch(){
     const [allDataSource, setAllDataSource] = useState<List<any>|undefined>();
     const [dataSource, setDataSource] = useState<any>();
     const [typedText, setTypedText] = useState("");
+    const [acDropDownShown, setAcDropDownShown] = useState(false);
+
+
+    const acRef = useRef<any>(null);
 
     const SearchIcon = (): IconElement => (
         <Icon 
-          name='search' 
+          name='search'
+          style={{opacity: 0.5}}
         />
       );
 
@@ -39,7 +36,23 @@ export default function CoinSearch(){
       }, []);
 
 
+      function renderOption(item: any, index: any){
+        return(
+        <>
+        <AutocompleteItem
+          key={index}
+          title={JSON.parse(item).symbol +" ("+ JSON.parse(item).name+")"}
+          onPress={()=> {
+            onItemSelected(item);
+          }}
+          style={{display: (acDropDownShown == true) ? 'flex' : 'none' }}
+        />  
+        </>
+        )
+      };
+
     function Filter(filterText:string){
+      setAcDropDownShown(true);
       setDataSource((allDataSource?.where(i => 
   
         ((JSON.parse(i).symbol).toUpperCase().includes(filterText.trim().toUpperCase())) ||
@@ -47,7 +60,21 @@ export default function CoinSearch(){
 
     ))?.toArray())
     }
+  
+    function onTyping(text:string){
+      Filter(text.trim());
+      setTypedText(text);
+    }
 
+    function onItemSelected(item: number){
+      acRef.current.clear();
+      setAcDropDownShown(false);
+      setDataSource(allDataSource?.toArray());
+    }
+
+    function onFocus(){
+      setAcDropDownShown(true);
+    }
 
     return (
     <>
@@ -56,11 +83,13 @@ export default function CoinSearch(){
     value={typedText}
     placeholder="Add Coin"
     onChangeText={(newText)=> {
-      Filter(newText.trim());
-      setTypedText(newText);
-    }}    
+      onTyping(newText);
+    }} 
+    onFocus={()=> onFocus()}   
     accessoryRight={SearchIcon}
+    ref={acRef}
     >
+
       {dataSource?.map(renderOption)}
 
     </Autocomplete>
