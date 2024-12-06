@@ -17,8 +17,9 @@ export default class SrcCoinLore{
         this.resourceGlobalCoins = "global";
     }
 
-    async getDataBySymbol(symbol: string) {
-        return new Object;
+    async getDataByID(ids: string) {
+        var url = this.baseEndpoint+"ticker/?id="+ids;
+        return (await httpService.sendGetRequest(url));    
     }
 
     async getAllSymbolData(filter:string) {

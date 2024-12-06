@@ -13,8 +13,13 @@ export default function Index() {
 
   useEffect(() => {
     const LoadCoinSource = async () => {
-      var coinSource = await CoinDataManager.retrieveFromCoinsDatabase();
-      setCoinSource(coinSource);
+      try{
+        var coinSource = await CoinDataManager.retrieveFromCoinsDatabase();
+        setCoinSource(coinSource);
+      }
+      catch{
+        CoinDataManager.updateCoinDatabaseFromLocal();
+      }
     }
     LoadCoinSource()  
   }, []);

@@ -2,7 +2,6 @@ import * as React from 'react';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import { View, useWindowDimensions } from 'react-native';
 import WatchList from './WatchList';
-import { Input } from '@ui-kitten/components';
 import CoinSearch from './CoinSearch';
 
 const watchList = ()=>{
@@ -24,8 +23,6 @@ export default function Home(){
     
   const layout = useWindowDimensions();
   const [index, setIndex] = React.useState(0);
-
-//return(<WatchList></WatchList>)
 
   return ( 
     <>

@@ -6,8 +6,17 @@ export const styles = StyleSheet.create({
         justifyContent: "flex-start",
         flexWrap: "wrap"
     },
+    FlexRow:{
+        flexDirection: "row",
+        justifyContent: "flex-start",
+
+    },
     CenterContent:{
         alignContent: "center",
-        alignSelf: "center"
+        alignSelf: "center",
+        justifyContent: "center"
+    },
+    bgcolorYellowtest:{
+        backgroundColor: "yellow"
     }
 })

@@ -50,4 +50,10 @@ export default class CoinDataManager{
     //     this.coinSource = await this.retrieveFromCoinsDatabase();
     //     console.log("Updated Coin Source. Its a "+this.coinSource?.length+" element List.")
     // }
+
+    static async getTickerData(ids:string){        
+        let srcObj = new SrcCoinLore();
+        var data = await srcObj.getDataByID(ids)
+        return await data;
+    }
 }

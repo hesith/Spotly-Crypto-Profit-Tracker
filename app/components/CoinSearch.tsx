@@ -4,9 +4,8 @@ import { styles } from "../styles";
 import { useEffect, useRef, useState } from "react";
 import CoinDataManager from "../classes/CoinDataManager";
 import { List } from "ts-generic-collections-linq";
-import { opacity } from "react-native-reanimated/lib/typescript/Colors";
-
-
+import WatchListManager from "../classes/WatchListManager";
+import WatchListSymbolDescription from "../classes/WatchListSymbolDescription";
 
 export default function CoinSearch(){
     const layout = useWindowDimensions();
@@ -66,10 +65,18 @@ export default function CoinSearch(){
       setTypedText(text);
     }
 
-    function onItemSelected(item: number){
+    function onItemSelected(item: any){
       acRef.current.clear();
+      setTypedText("");
       setAcDropDownShown(false);
       setDataSource(allDataSource?.toArray());
+      
+      WatchListManager.AddToSpotWatchList(
+        new WatchListSymbolDescription(
+          JSON.parse(item).id,
+          JSON.parse(item).symbol
+        )
+      )
     }
 
     function onFocus(){
