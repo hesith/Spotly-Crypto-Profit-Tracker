@@ -44,7 +44,7 @@ export default function CoinSearch(){
           onPress={()=> {
             onItemSelected(item);
           }}
-          style={{display: (acDropDownShown == true) ? 'flex' : 'none' }}
+          style={[{display: (acDropDownShown == true) ? 'flex' : 'none' }]}
         />  
         </>
         )
@@ -86,7 +86,7 @@ export default function CoinSearch(){
     return (
     <>
     <Autocomplete 
-    style={[{height: 50, width: layout.width}, styles.CenterContent]}
+    style={[{height: 50, width: layout.width}, styles.CenterContent, styles.FontSymbol]}
     value={typedText}
     placeholder="Add Coin"
     onChangeText={(newText)=> {

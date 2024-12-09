@@ -39,7 +39,7 @@ export default function WatchList(){
 
       var ss = await CoinDataManager.getTickerData(ids);
       setPriceData(await ss);
-      
+      CoinDataManager.setSnapshot(await ss);
     }
     const interval = setInterval(async() => {
       GetCoinSnapshot()  

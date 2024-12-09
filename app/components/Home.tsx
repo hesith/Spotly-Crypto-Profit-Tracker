@@ -3,6 +3,7 @@ import { TabView, SceneMap } from 'react-native-tab-view';
 import { View, useWindowDimensions } from 'react-native';
 import WatchList from './WatchList';
 import CoinSearch from './CoinSearch';
+import { styles } from '../styles';
 
 const watchList = ()=>{
   return (<WatchList></WatchList>)

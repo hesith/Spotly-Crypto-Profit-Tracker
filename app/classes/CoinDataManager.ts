@@ -5,7 +5,15 @@ import { List } from "ts-generic-collections-linq";
 
 export default class CoinDataManager{
 
-    static coinSource:List<any> | undefined;
+    static snapshot:any;
+
+    static getSnapshot(){
+        return this.snapshot;
+    }
+
+    static setSnapshot(ss:any){
+        this.snapshot = ss;
+    }
 
     static async updateCoinDatabase() {
         let srcObj = new SrcCoinLore();
@@ -13,7 +21,6 @@ export default class CoinDataManager{
 
         fileService.writeToCoinsFile(JSON.stringify(await data)).then(() =>{
             console.log("Update successful")
-            //this.updateCoinSource()
         },
         ()=>{
             console.log("Update unsuccessful")
@@ -32,7 +39,6 @@ export default class CoinDataManager{
 
         fileService.writeToCoinsFile(await data).then(() =>{
             console.log("Update successful")
-            //this.updateCoinSource()
         },
         ()=>{
             console.log("Update unsuccessful")
@@ -46,10 +52,7 @@ export default class CoinDataManager{
         return fileService.readFromCoinsFile();
     }
 
-    // static async updateCoinSource(){
-    //     this.coinSource = await this.retrieveFromCoinsDatabase();
-    //     console.log("Updated Coin Source. Its a "+this.coinSource?.length+" element List.")
-    // }
+
 
     static async getTickerData(ids:string){        
         let srcObj = new SrcCoinLore();

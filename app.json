@@ -33,7 +33,24 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200
         }
-      ]
+      ],
+      [
+        "expo-font",
+      {
+        "fonts": [
+          "./assets/fonts/MangabeyRegular.otf",
+          "./assets/fonts/MontserratBlack.ttf",
+          "./assets/fonts/MontserratBold.ttf",
+          "./assets/fonts/MontserratExtrabold.ttf",
+          "./assets/fonts/MontserratExtralight.ttf",
+          "./assets/fonts/MontserratLight.ttf",
+          "./assets/fonts/MontserratMedium.ttf",
+          "./assets/fonts/MontserratRegular.ttf",
+          "./assets/fonts/MontserratSemibold.ttf",
+          "./assets/fonts/MontserratThin.ttf"
+        ]
+      }
+    ]
     ],
     "experiments": {
       "typedRoutes": true
