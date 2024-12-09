@@ -2,10 +2,12 @@ import { useWindowDimensions, View } from "react-native";
 import { styles } from "../styles";
 import { Input, Text } from "@ui-kitten/components";
 import CoinDataManager from "../classes/CoinDataManager";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 export default function InvestmentDetails({route}: any){
     const layout = useWindowDimensions();
+    const navigation = useNavigation();
 
     var priceObj = route?.params;
     const[Snapshot, setSnapshot] = useState<any>({price_usd: priceObj.price_usd, percent_change_24h: priceObj.percent_change_24h});
@@ -13,6 +15,10 @@ export default function InvestmentDetails({route}: any){
     const [BuyingPrice, setBuyingPrice] = useState<any>("");
     const [Investment, setInvestment] = useState<any>("");
     const [HoldingQty, setHoldingQty] = useState<any>("");
+
+    const buyingPriceRef = useRef<any>(null);
+    const investmentRef = useRef<any>(null);
+    const holdingQtyRef = useRef<any>(null);
 
     useEffect(() => {
       const GetCoinSnapshot = () => {
@@ -32,29 +38,91 @@ export default function InvestmentDetails({route}: any){
     }, [CoinDataManager.getSnapshot()]);
 
 function onBuyingPriceChanged(value:string){
-
   try{
     if(!(value.endsWith('.')||value==''))
     {
-      setBuyingPrice(parseFloat(value));
-      setHoldingQty(Investment/parseFloat(value))
+      if(isNaN(parseFloat(value)) || parseFloat(value)==0){
+        setBuyingPrice(0);
+        setHoldingQty(0)
+      }
+      else{
+        setBuyingPrice((parseFloat(value)));
+        setHoldingQty(Investment/parseFloat(value))
+      }
+     
     }else{
       setBuyingPrice(value);
     }  
   }catch(e){
     console.log(e)
   }
-  
 }
 
 function onInvestmentChanged(value:string){
-  setInvestment(parseFloat(value));
+  try{
+    if(!(value.endsWith('.')||value==''))
+      {
+        if(isNaN(parseFloat(value)) || parseFloat(value)==0){
+          setInvestment(0);
+          setHoldingQty(0)
+        }
+        else{
+          setInvestment(parseFloat(value));
+          setHoldingQty(parseFloat(value)/BuyingPrice)
+        }
+       
+      }else{
+        setInvestment(value);
+      }  
+  }catch(e){
+    console.log(e)
+  }
 }
 
 function onHoldingQtyChanged(value:string){
-  setHoldingQty(parseFloat(value));
+  try{
+    if(!(value.endsWith('.')||value==''))
+      {
+        if(isNaN(parseFloat(value)) || parseFloat(value)==0){
+          setInvestment(0);
+          setHoldingQty(0);
+        }else{
+          setHoldingQty(parseFloat(value));
+          setInvestment(parseFloat(value)*BuyingPrice)
+        }
+
+      }else{
+        setHoldingQty(value);
+      }  
+  }catch(e){
+    console.log(e)
+  }  
 }
 
+function onCancelPressed(){
+  navigation.goBack();
+}
+
+function onSavePressed(){
+  let isValid = validate();
+}
+
+function validate(){
+  if(BuyingPrice == 0 || BuyingPrice.toString().endsWith('.') || BuyingPrice == ''){
+    buyingPriceRef.current?.focus();
+    return false;
+  }
+  if(Investment == 0 || Investment.toString().endsWith('.') || Investment == ''){
+    investmentRef.current?.focus();
+    return false;
+  }
+  if(HoldingQty == 0 || HoldingQty.toString().endsWith('.') || HoldingQty == ''){
+    holdingQtyRef.current?.focus();
+    return false;
+  }
+
+
+}
 
     return(
         <View
@@ -105,6 +173,7 @@ function onHoldingQtyChanged(value:string){
             maxLength={11}
             textAlign="right"
             textStyle={[{fontSize:14},styles.FontPrice]}
+            ref={buyingPriceRef}
             style={[
               {width: (layout.width - 40) * 0.4},
               styles.input
@@ -134,6 +203,7 @@ function onHoldingQtyChanged(value:string){
             maxLength={15}
             textAlign="right"
             textStyle={[{fontSize:14},styles.FontPrice]}
+            ref={investmentRef}
             style={[
               {width: (layout.width - 40) * 0.4},
               styles.input
@@ -163,6 +233,7 @@ function onHoldingQtyChanged(value:string){
             maxLength={20}
             textAlign="right"
             textStyle={[{fontSize:14},styles.FontPrice]}
+            ref={holdingQtyRef}
             style={[
               {width: (layout.width - 40) * 0.4},
               styles.input
@@ -178,6 +249,28 @@ function onHoldingQtyChanged(value:string){
               </Text>        
         </View>  
 
+
+        <View style={[{width: layout.width, justifyContent:'flex-end' }, styles.paddedViewWithoutTop, styles.FlexRowFlexEnd]}>     
+         
+              <Text 
+              onPress={()=> onCancelPressed()}
+            style={[
+              { width: 55, textAlign:'center', marginRight: 20}, 
+              styles.FontSymbolBold, 
+              styles.buttonLabel
+              ]}>
+                Cancel
+              </Text>
+              <Text 
+              onPress={()=> onSavePressed()}
+            style={[
+              { width: 40, textAlign:'center'}, 
+              styles.FontSymbolBold, 
+              styles.buttonLabelDotted
+              ]}>
+                Save
+              </Text>
+        </View>  
 
         </View>
     );

@@ -1,13 +1,11 @@
 import { ScrollView, Text, View } from "react-native";
 import LoadingIndicator from "./LoadingIndicator";
 import AddCoin from "./AddCoin";
-import { styles } from "../styles";
 import { useEffect, useState } from "react";
 import CoinDataManager from "../classes/CoinDataManager";
 import WatchListManager from "../classes/WatchListManager";
 import WatchListSymbolDescription from "../classes/WatchListSymbolDescription";
 import NoData from "./NoData";
-import { List } from "ts-generic-collections-linq";
 
 export default function WatchList(){
 

@@ -11,6 +11,11 @@ export const styles = StyleSheet.create({
         justifyContent: "flex-start",
 
     },
+    FlexRowFlexEnd:{
+        flexDirection: "row",
+        justifyContent: "flex-end",
+
+    },
     CenterContent:{
         alignContent: "center",
         alignSelf: "center",
@@ -41,6 +46,18 @@ export const styles = StyleSheet.create({
         fontSize: 10,
         verticalAlign: 'middle',
         marginLeft: 5
+    },
+    buttonLabel:{
+        height: 32,
+        fontSize: 14,
+        verticalAlign: 'bottom'
+    },
+    buttonLabelDotted:{
+        height: 32,
+        fontSize: 14,
+        verticalAlign: 'bottom',
+        borderBottomWidth: 1,
+        borderStyle: 'dotted'
     },
     FontPrice:{
         fontFamily:'MangabeyRegular',
