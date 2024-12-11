@@ -41,14 +41,13 @@ export default class fileService{
             
             var contentList = new List<any>(JSON.parse(await content));
 
-            //console.log(contentList.where(i => JSON.parse(i).id == 32802));
-
             return contentList;
 
         }
-        catch(error)
+        catch(error:any)
         {
-            console.log(error);
+            console.log(error.toString());
+            return error.toString();
         }
     }
 

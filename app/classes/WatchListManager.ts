@@ -2,7 +2,7 @@ import asyncStorageService from "../services/asyncStorageService";
 import WatchListSymbolDescription from "./WatchListSymbolDescription";
 
 export default class WatchListManager{
-    static spotWatchList:WatchListSymbolDescription[] = [];
+    static spotWatchList:(WatchListSymbolDescription | undefined) [] = [];
 
     static AddToSpotWatchList(obj: WatchListSymbolDescription){
         this.spotWatchList.push(obj);
@@ -10,7 +10,26 @@ export default class WatchListManager{
     }
 
     static ReomveFromSpotWatchList(id: string){
-        this.spotWatchList = this.spotWatchList.filter(element => element.id != id);
+        this.spotWatchList = this.spotWatchList.filter(element => element?.id != id);
+        this.SetSpotWatchList();
+    }
+
+    static UpdateSpotWatchList(newObj: WatchListSymbolDescription){
+        var updatedSpotWatchList = this.spotWatchList.map((element) => {
+            if(element?.id == newObj.id){
+                return (new WatchListSymbolDescription(
+                    newObj.id,
+                    newObj.symbol,
+                    newObj.buyingPrice,
+                    newObj.investment,
+                    newObj.holdingQty
+                ))
+            }else{
+                return element;
+            }
+        });
+        
+        this.spotWatchList = updatedSpotWatchList;
         this.SetSpotWatchList();
     }
 

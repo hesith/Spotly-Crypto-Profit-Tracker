@@ -1,17 +1,18 @@
-import { Spinner, Text } from "@ui-kitten/components";
+import { Spinner, styled, Text } from "@ui-kitten/components";
 import { View } from "react-native";
+import { styles } from "../styles";
 
 export default function NoData(){
     return (
         <View
-          style={{
+          style={[{
             flex: 1,
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: 'skyblue'
-          }}
+          },
+        styles.BackgroundColorLight]}
         >
-              <Text>No Data</Text>        
+              <Text style={[styles.FontSymbol, styles.FontHintColor]}>No Data</Text>        
 
         </View>
 )

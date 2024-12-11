@@ -57,7 +57,8 @@ export const styles = StyleSheet.create({
         fontSize: 14,
         verticalAlign: 'bottom',
         borderBottomWidth: 1,
-        borderStyle: 'dotted'
+        borderStyle: 'dotted',
+        borderColor:'white'
     },
     FontPrice:{
         fontFamily:'MangabeyRegular',
@@ -69,23 +70,51 @@ export const styles = StyleSheet.create({
     FontSymbolBold:{
         fontFamily:'MontserratBold',
     },
+    FontBasicColor:{
+        color:'#FFFFFF'
+    },
+    FontHintColor:{
+        color:'#8F9BB3'
+    },
+    BackgroundColorBasic:{
+        backgroundColor: '#101426'
+    },
+    BackgroundColorLight:{
+        backgroundColor: '#222B45'
+    },
     paddedViewWithoutBottom:{
-        backgroundColor: 'lightgreen',
         paddingTop: 20,
         paddingHorizontal: 20 
     },
     paddedViewWithoutTop:{
-        backgroundColor: 'lightgreen',
         paddingBottom: 20,
         paddingHorizontal: 20 
     },
     paddedViewHorizontal:{
-        backgroundColor: 'lightgreen',
         paddingHorizontal: 20 
     },paddedView:{
-        backgroundColor: 'lightgreen',
         paddingVertical: 20,
         paddingHorizontal: 20 
     },
-    
+    paddedTextHorizontal:{
+        paddingHorizontal: 10 
+    },
+    TextVerticalBottom:{
+        verticalAlign: 'bottom'
+    },
+    TextProfit:{
+        color: 'lightgreen',
+        textShadowColor: 'lightgreen',
+        textShadowOffset: {width: 0, height: 0},
+        textShadowRadius: 10
+    },
+    TextLoss:{
+        color: 'red',
+        textShadowColor: 'red',
+        textShadowOffset: {width: 0, height: 0},
+        textShadowRadius: 10
+    },
+    TextPNL:{
+        color: 'white'
+    }
 })

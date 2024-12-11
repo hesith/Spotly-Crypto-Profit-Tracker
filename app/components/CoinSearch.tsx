@@ -1,4 +1,4 @@
-import { Autocomplete, AutocompleteItem, Icon, IconElement, Input } from "@ui-kitten/components";
+import { Autocomplete, AutocompleteItem, Icon, IconElement, Input, Text } from "@ui-kitten/components";
 import { Button, useWindowDimensions, View } from "react-native";
 import { styles } from "../styles";
 import { useEffect, useRef, useState } from "react";
@@ -21,31 +21,51 @@ export default function CoinSearch(){
     const SearchIcon = (): IconElement => (
         <Icon 
           name='search'
-          style={{opacity: 0.5}}
         />
       );
 
       useEffect(() => {
         const LoadDataSource = async () => {
-          var coinSource = await CoinDataManager.retrieveFromCoinsDatabase();
+          var src = await CoinDataManager.retrieveFromCoinsDatabase();
+
+          var coinSource;
+
+          if(await src.toString().startsWith('Error'))
+          {
+            await CoinDataManager.updateCoinDatabaseFromLocal();
+            coinSource = await CoinDataManager.retrieveFromCoinsDatabase();
+          }
+          else
+          {
+            coinSource = await src;
+          }
+
           setAllDataSource(await coinSource);
           setDataSource(coinSource?.toArray());
         }
         LoadDataSource()  
       }, []);
 
-
+      function renderText(item:any){
+        return(
+          <>
+              <Text style={styles.FontSymbol}>
+                {JSON.parse(item).symbol +" ("+ JSON.parse(item).name+")"}
+              </Text>
+          </>
+        )
+      }
       function renderOption(item: any, index: any){
         return(
         <>
         <AutocompleteItem
           key={index}
-          title={JSON.parse(item).symbol +" ("+ JSON.parse(item).name+")"}
+          title={renderText(item)} 
           onPress={()=> {
             onItemSelected(item);
           }}
           style={[{display: (acDropDownShown == true) ? 'flex' : 'none' }]}
-        />  
+        />
         </>
         )
       };
@@ -77,6 +97,8 @@ export default function CoinSearch(){
           JSON.parse(item).symbol
         )
       )
+
+      acRef.current.blur();
     }
 
     function onFocus(){
@@ -86,6 +108,7 @@ export default function CoinSearch(){
     return (
     <>
     <Autocomplete 
+    textStyle={styles.FontSymbol}
     style={[{height: 50, width: layout.width}, styles.CenterContent, styles.FontSymbol]}
     value={typedText}
     placeholder="Add Coin"

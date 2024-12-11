@@ -1,20 +1,24 @@
 import { useWindowDimensions, View } from "react-native";
 import { styles } from "../styles";
-import { Input, Text } from "@ui-kitten/components";
+import { Divider, Input, Text } from "@ui-kitten/components";
 import CoinDataManager from "../classes/CoinDataManager";
 import { useEffect, useRef, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import WatchListManager from "../classes/WatchListManager";
+import WatchListSymbolDescription from "../classes/WatchListSymbolDescription";
 
 export default function InvestmentDetails({route}: any){
     const layout = useWindowDimensions();
     const navigation = useNavigation();
 
-    var priceObj = route?.params;
+    var priceObj = route?.params.priceObj;
+    var invObj = route?.params.invObj;
+    
     const[Snapshot, setSnapshot] = useState<any>({price_usd: priceObj.price_usd, percent_change_24h: priceObj.percent_change_24h});
 
-    const [BuyingPrice, setBuyingPrice] = useState<any>("");
-    const [Investment, setInvestment] = useState<any>("");
-    const [HoldingQty, setHoldingQty] = useState<any>("");
+    const [BuyingPrice, setBuyingPrice] = useState<any>(invObj.buyingPrice);
+    const [Investment, setInvestment] = useState<any>(invObj.investment);
+    const [HoldingQty, setHoldingQty] = useState<any>(invObj.holdingQty);
 
     const buyingPriceRef = useRef<any>(null);
     const investmentRef = useRef<any>(null);
@@ -47,7 +51,7 @@ function onBuyingPriceChanged(value:string){
       }
       else{
         setBuyingPrice((parseFloat(value)));
-        setHoldingQty(Investment/parseFloat(value))
+        setHoldingQty((Investment/parseFloat(value)).toFixed(5))
       }
      
     }else{
@@ -68,7 +72,7 @@ function onInvestmentChanged(value:string){
         }
         else{
           setInvestment(parseFloat(value));
-          setHoldingQty(parseFloat(value)/BuyingPrice)
+          setHoldingQty((parseFloat(value)/BuyingPrice).toFixed(5))
         }
        
       }else{
@@ -87,7 +91,7 @@ function onHoldingQtyChanged(value:string){
           setInvestment(0);
           setHoldingQty(0);
         }else{
-          setHoldingQty(parseFloat(value));
+          setHoldingQty((parseFloat(value)).toFixed(5));
           setInvestment(parseFloat(value)*BuyingPrice)
         }
 
@@ -105,6 +109,21 @@ function onCancelPressed(){
 
 function onSavePressed(){
   let isValid = validate();
+  
+  if(isValid){
+
+    var investmentDetailsObj = new WatchListSymbolDescription(
+      priceObj.id,
+      priceObj.symbol,
+      BuyingPrice,
+      Investment,
+      HoldingQty
+    );
+
+    WatchListManager.UpdateSpotWatchList(investmentDetailsObj);
+
+    navigation.goBack();
+  }
 }
 
 function validate(){
@@ -120,18 +139,17 @@ function validate(){
     holdingQtyRef.current?.focus();
     return false;
   }
-
-
+  return true;
 }
 
     return(
         <View
-          style={{
+          style={[{
             flex: 1,
             justifyContent: "flex-start",
             alignItems: "center",
-            backgroundColor: 'skyblue'
-          }}
+          }, styles.BackgroundColorLight]
+        }
         >          
         <View style={[{width: layout.width }, styles.paddedViewWithoutBottom, styles.FlexRow]}>     
             <Text 
@@ -159,7 +177,7 @@ function validate(){
         </Text>
         </View>
 
-        <View style={[{width: layout.width }, styles.paddedView, styles.FlexRow]}>     
+        <View style={[{width: layout.width, borderTopWidth:1, borderTopColor:'rgba(250, 250, 250, 0.1)' }, styles.paddedView, styles.FlexRow]}>     
             <Text 
             style={[
               { width: (layout.width - 40) * 0.4}, styles.FontSymbol, styles.inputLabel
@@ -179,7 +197,8 @@ function validate(){
               styles.input
               ]}
             onChangeText={txt => onBuyingPriceChanged(txt)}
-            value={BuyingPrice.toString()}>
+            value={BuyingPrice.toString()}
+            >
             </Input>    
             <Text 
             style={[
@@ -239,7 +258,7 @@ function validate(){
               styles.input
               ]}
               onChangeText={txt => onHoldingQtyChanged(txt)}
-              value={HoldingQty.toString()}>
+              value={'~ '+HoldingQty.toString()}>
             </Input>    
             <Text 
             style={[

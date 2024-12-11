@@ -62,6 +62,7 @@ export default function AddCoin(props:any){
     }catch{
     }
 
+    var pnl = ((parseFloat(lastPrice)*props.holdingQty) - (props.buyingPrice*props.holdingQty)).toFixed(2);
 
     function onLongPressed(){
       WatchListManager.ReomveFromSpotWatchList(props.id)
@@ -69,45 +70,65 @@ export default function AddCoin(props:any){
 
     function onPressed(){
       try{
-        navigation.navigate({name:'components/InvestmentDetails', params:coinData[0]} as never);    
+        navigation.navigate({name:'components/InvestmentDetails', params:{priceObj:coinData[0], invObj:props}} as never);    
       }
       catch{}
     }
 
     return (
 
-      <View style={[{backgroundColor:"white"}]}>
+      <View style={[{marginTop: 1},styles.BackgroundColorBasic]}>
       <TouchableOpacity
-        style={[{height: layout.height * 0.1, width: layout.width }]}  
+        style={[{height: 70, width: layout.width }]}  
         onLongPress={()=> onLongPressed()}
         onPress={()=> onPressed()}
       >
         <View style={[styles.FlexRow]}>
-          <Text style={[{width: layout.width * 0.25, backgroundColor:"black", color:"white", textAlign:"left" }, styles.FontSymbol]}>
+          <Text style={[{width: layout.width * 0.25, textAlign:"left"}, 
+            styles.FontSymbol, styles.FontBasicColor, styles.paddedTextHorizontal, styles.TextVerticalBottom]}>
                 {props.symbol}
+          </Text> 
+
+          <Text style={[{width: layout.width * 0.35, textAlign:"right" }, 
+            styles.FontPrice, styles.TextVerticalBottom]}>
+            <Text style={[{fontSize: 8},styles.FontSymbol, styles.FontHintColor]}>Buying Price  </Text>
+            {props.buyingPrice}
           </Text>
 
-          <Text style={[{width: layout.width * 0.35, backgroundColor:"grey", textAlign:"right" }, styles.FontPrice]}>
-            [Buying Price]
-          </Text>
-
-          <Text style={[{width: layout.width * 0.4, backgroundColor:"white", textAlign:"right", color: (PriceDiff>0)? 'green' : (PriceDiff<0)? 'red' : 'black'}, styles.FontPrice]}> 
+          <Text style={[{width: layout.width * 0.4, textAlign:"right", color: (PriceDiff>0)? 'green' : (PriceDiff<0)? 'red' : 'white'}, 
+            styles.FontPrice, styles.paddedTextHorizontal]}> 
             {lastPrice}  
             <ArrowIcon></ArrowIcon>   
           </Text>
         </View>
 
         <View style={[styles.FlexRow]}>
-          <Text style={{width: layout.width * 0.25, backgroundColor:"black", color:"white", textAlign:"left" }}>
-            [Qty]
+          <Text style={[{width: layout.width * 0.25, color:"white", textAlign:"left" }, 
+            styles.FontBasicColor, styles.paddedTextHorizontal, styles.FontSymbol, styles.TextVerticalBottom]}>
+            {props.holdingQty == 0 ? '': props.holdingQty}
           </Text>
 
-          <Text style={{width: layout.width * 0.35, backgroundColor:"grey", textAlign:"right" }}>
-            [Investment]
+          <Text style={[{width: layout.width * 0.35, textAlign:"right"}, 
+            styles.TextVerticalBottom, styles.FontPrice]}>           
+          <Text style={[{fontSize: 8},styles.FontSymbol, styles.FontHintColor]}>Investment  </Text>
+          <Text style={[{fontSize: 14},
+            styles.FontSymbol]}>$ </Text>
+          {props.investment}
           </Text>
 
-          <Text style={{width: layout.width * 0.4, backgroundColor:"green", textAlign:"right" }}>
-            [Profit/Loss]
+          <Text style={[{width: layout.width * 0.4, textAlign:"right"}, 
+            styles.TextVerticalBottom, styles.paddedViewHorizontal
+          ]}>
+          <Text style={[{fontSize: 8},styles.FontSymbol, styles.FontHintColor]}>Un. PNL  </Text>
+          <Text style={[{fontSize: 14},
+            (parseInt(pnl) > 0)? styles.TextProfit : (parseInt(pnl) < 0)? styles.TextLoss : styles.TextPNL, 
+            styles.FontSymbol]}>$ </Text>
+          <Text style={[{fontSize: 16}, 
+            (parseInt(pnl) > 0)? styles.TextProfit : (parseInt(pnl) < 0)? styles.TextLoss : styles.TextPNL, 
+            styles.FontPrice]}>           
+            {pnl}
+          </Text>
+          
           </Text>
         </View>
 

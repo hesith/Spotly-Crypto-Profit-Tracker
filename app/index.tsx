@@ -27,9 +27,11 @@ export default function Index() {
   if(coinSource != undefined)
   {
     return <Home></Home> 
+  }else
+  {
+    return <LoadingIndicator></LoadingIndicator> 
   }
 
-  return <LoadingIndicator></LoadingIndicator> 
 
 }
 
@@ -44,6 +46,5 @@ async function ConfigureCoinData(){
   else
   {
     console.log("Login to application.")
-    //CoinDataManager.updateCoinSource(); 
   }
 }
