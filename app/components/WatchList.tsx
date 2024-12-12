@@ -1,5 +1,4 @@
 import { ScrollView, Text, useWindowDimensions, View } from "react-native";
-import LoadingIndicator from "./LoadingIndicator";
 import AddCoin from "./AddCoin";
 import { useEffect, useState } from "react";
 import CoinDataManager from "../classes/CoinDataManager";
@@ -61,7 +60,17 @@ export default function WatchList(){
     if(WLSource?.length == 0){
       return (<NoData></NoData>)
     }else{
+
+      var totInvestment =  (WLSource?.reduce((sum, current) => 
+        sum + parseFloat((current?.investment) == undefined ? '0' : current?.investment), 0))?.toFixed(2)};
+      var totCurrentValue = WLSource?.reduce((sum, current) => 
+                sum + (PriceData == undefined ? 0 :parseFloat((PriceData?.filter((x: { id: string; }) => x.id == current?.id))[0]?.price_usd) * parseFloat((current?.holdingQty) == undefined ? '0' : current?.holdingQty)) , 0
+      );
+
+      var pnl = (totCurrentValue == undefined || totInvestment == undefined)? 0 : (totCurrentValue - parseFloat(totInvestment)).toFixed(2);
+            
       return (
+        <>
         <ScrollView
           style={[{
             flex: 1,
@@ -75,10 +84,38 @@ export default function WatchList(){
 
 
         </ScrollView>
+
+        <View style={[{height: 60, marginTop: 1}, styles.BackgroundColorBasic, styles.paddedView, styles.FlexRow]}>
+        <Text style={[{fontSize: 8, width: 80}, 
+          styles.FontHintColor, styles.FontSymbol, styles.TextVerticalMiddle]}>
+            Total Investment
+            </Text> 
+          <Text style={[{fontSize: 14},
+            styles.FontBasicColor,
+            styles.FontSymbol]}>$ </Text>
+        <Text style={[{fontSize:16},styles.FontPrice, styles.FontBasicColor, styles.TextVerticalMiddle]}> 
+          {totInvestment} 
+          </Text>
+
+          <Text style={[{fontSize: 8, width: 70, marginLeft: 30}, 
+          styles.FontHintColor, styles.FontSymbol, styles.TextVerticalMiddle]}>
+            Total Un. PNL
+            </Text> 
+            <Text style={[{fontSize: 14},
+             (parseFloat(pnl.toString()) > 0)? styles.TextProfit : (parseFloat(pnl.toString()) < 0)? styles.TextLoss : styles.TextPNL, 
+            styles.FontSymbol]}>
+              {PriceData == null ? '' : '~ $'} </Text>
+          <Text style={[{fontSize: 16}, 
+            (parseFloat(pnl.toString()) > 0)? styles.TextProfit : (parseFloat(pnl.toString()) < 0)? styles.TextLoss : styles.TextPNL, 
+            styles.FontPrice]}>  
+            {PriceData == null ? '-- --' : pnl == '0.00' ? '0.00' :(parseFloat(pnl.toString())+0.02).toFixed(2)} 
+          </Text> 
+        </View>
+
+        </>
       );
     }
 
     
 
     
-}

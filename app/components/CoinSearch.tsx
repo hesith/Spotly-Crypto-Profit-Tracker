@@ -111,7 +111,7 @@ export default function CoinSearch(){
     textStyle={styles.FontSymbol}
     style={[{height: 50, width: layout.width}, styles.CenterContent, styles.FontSymbol]}
     value={typedText}
-    placeholder="Add Coin"
+    placeholder="Search"
     onChangeText={(newText)=> {
       onTyping(newText);
     }} 

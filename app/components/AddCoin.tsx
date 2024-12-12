@@ -1,5 +1,5 @@
 import { Button, Icon, IconElement, Input, Text } from "@ui-kitten/components";
-import { Pressable, TouchableOpacity, useWindowDimensions, View } from "react-native";
+import { Pressable, TouchableOpacity, useWindowDimensions, Vibration, View } from "react-native";
 import {styles} from '../styles';
 import WatchListManager from "../classes/WatchListManager";
 import { useState } from "react";
@@ -65,6 +65,7 @@ export default function AddCoin(props:any){
     var pnl = ((parseFloat(lastPrice)*props.holdingQty) - (props.buyingPrice*props.holdingQty)).toFixed(2);
 
     function onLongPressed(){
+      Vibration.vibrate(50);
       WatchListManager.ReomveFromSpotWatchList(props.id)
     }
 
@@ -92,7 +93,7 @@ export default function AddCoin(props:any){
           <Text style={[{width: layout.width * 0.35, textAlign:"right" }, 
             styles.FontPrice, styles.TextVerticalBottom]}>
             <Text style={[{fontSize: 8},styles.FontSymbol, styles.FontHintColor]}>Buying Price  </Text>
-            {props.buyingPrice}
+            {props.buyingPrice == 0 ? '-- --' : props.buyingPrice}
           </Text>
 
           <Text style={[{width: layout.width * 0.4, textAlign:"right", color: (PriceDiff>0)? 'green' : (PriceDiff<0)? 'red' : 'white'}, 
@@ -103,7 +104,7 @@ export default function AddCoin(props:any){
         </View>
 
         <View style={[styles.FlexRow]}>
-          <Text style={[{width: layout.width * 0.25, color:"white", textAlign:"left" }, 
+          <Text style={[{width: layout.width * 0.25, color:"white", textAlign:"left", fontSize: 10 }, 
             styles.FontBasicColor, styles.paddedTextHorizontal, styles.FontSymbol, styles.TextVerticalBottom]}>
             {props.holdingQty == 0 ? '': props.holdingQty}
           </Text>
@@ -113,7 +114,7 @@ export default function AddCoin(props:any){
           <Text style={[{fontSize: 8},styles.FontSymbol, styles.FontHintColor]}>Investment  </Text>
           <Text style={[{fontSize: 14},
             styles.FontSymbol]}>$ </Text>
-          {props.investment}
+          {props.investment == '0' ?  '--' : parseFloat(props.investment).toFixed(2) }   
           </Text>
 
           <Text style={[{width: layout.width * 0.4, textAlign:"right"}, 
@@ -122,11 +123,11 @@ export default function AddCoin(props:any){
           <Text style={[{fontSize: 8},styles.FontSymbol, styles.FontHintColor]}>Un. PNL  </Text>
           <Text style={[{fontSize: 14},
             (parseInt(pnl) > 0)? styles.TextProfit : (parseInt(pnl) < 0)? styles.TextLoss : styles.TextPNL, 
-            styles.FontSymbol]}>$ </Text>
+            styles.FontSymbol]}>{pnl == '0.00' ? '':'$'} </Text>
           <Text style={[{fontSize: 16}, 
             (parseInt(pnl) > 0)? styles.TextProfit : (parseInt(pnl) < 0)? styles.TextLoss : styles.TextPNL, 
             styles.FontPrice]}>           
-            {pnl}
+            {pnl == '0.00' ? '--' : pnl}
           </Text>
           
           </Text>

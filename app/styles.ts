@@ -102,6 +102,9 @@ export const styles = StyleSheet.create({
     TextVerticalBottom:{
         verticalAlign: 'bottom'
     },
+    TextVerticalMiddle:{
+        verticalAlign: 'middle'
+    },
     TextProfit:{
         color: 'lightgreen',
         textShadowColor: 'lightgreen',

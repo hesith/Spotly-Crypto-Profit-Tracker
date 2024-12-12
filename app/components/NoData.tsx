@@ -12,7 +12,7 @@ export default function NoData(){
           },
         styles.BackgroundColorLight]}
         >
-              <Text style={[styles.FontSymbol, styles.FontHintColor]}>No Data</Text>        
+              <Text style={[styles.FontSymbol, styles.FontHintColor]}>Add Crypto to continue</Text>        
 
         </View>
 )

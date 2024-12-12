@@ -24,6 +24,7 @@ export default function InvestmentDetails({route}: any){
     const investmentRef = useRef<any>(null);
     const holdingQtyRef = useRef<any>(null);
 
+
     useEffect(() => {
       const GetCoinSnapshot = () => {
         var ss = CoinDataManager.getSnapshot();
@@ -109,7 +110,7 @@ function onCancelPressed(){
 
 function onSavePressed(){
   let isValid = validate();
-  
+
   if(isValid){
 
     var investmentDetailsObj = new WatchListSymbolDescription(
@@ -151,7 +152,7 @@ function validate(){
           }, styles.BackgroundColorLight]
         }
         >          
-        <View style={[{width: layout.width }, styles.paddedViewWithoutBottom, styles.FlexRow]}>     
+        <View style={[{width: layout.width, marginTop: 1 }, styles.paddedViewWithoutBottom, styles.FlexRow, styles.BackgroundColorBasic]}>     
             <Text 
             style={[
               {fontSize: 20, width: (layout.width - 40) * 0.5}, styles.FontSymbolBold
@@ -167,7 +168,7 @@ function validate(){
               </Text>
         </View>  
 
-        <View style={[{width: layout.width }, styles.paddedViewWithoutTop, styles.FlexRow]}>     
+        <View style={[{width: layout.width }, styles.paddedViewWithoutTop, styles.FlexRow, styles.BackgroundColorBasic]}>     
         <Text style={[{fontSize: 12, width: (layout.width - 40) * 0.5},styles.FontSymbol]}>{priceObj.name}</Text>
         <Text style={[
           {fontSize: 12, width: (layout.width - 40) * 0.5, color:(priceObj.percent_change_24h < 0)? 'red':'green'}, 
@@ -193,11 +194,12 @@ function validate(){
             textStyle={[{fontSize:14},styles.FontPrice]}
             ref={buyingPriceRef}
             style={[
-              {width: (layout.width - 40) * 0.4},
+              {width: (layout.width - 40) * 0.4, backgroundColor: '#1A2138'},
               styles.input
               ]}
             onChangeText={txt => onBuyingPriceChanged(txt)}
             value={BuyingPrice.toString()}
+    
             >
             </Input>    
             <Text 
@@ -224,11 +226,12 @@ function validate(){
             textStyle={[{fontSize:14},styles.FontPrice]}
             ref={investmentRef}
             style={[
-              {width: (layout.width - 40) * 0.4},
+              {width: (layout.width - 40) * 0.4, backgroundColor: '#1A2138'},
               styles.input
               ]}
               onChangeText={txt => onInvestmentChanged(txt)}
-              value={Investment.toString()}>
+              value={Investment.toString()}
+              >
             </Input>  
             <Text 
             style={[
@@ -254,11 +257,12 @@ function validate(){
             textStyle={[{fontSize:14},styles.FontPrice]}
             ref={holdingQtyRef}
             style={[
-              {width: (layout.width - 40) * 0.4},
+              {width: (layout.width - 40) * 0.4, backgroundColor: '#1A2138'},
               styles.input
               ]}
               onChangeText={txt => onHoldingQtyChanged(txt)}
-              value={'~ '+HoldingQty.toString()}>
+              value={'~ '+HoldingQty.toString()}
+              >
             </Input>    
             <Text 
             style={[

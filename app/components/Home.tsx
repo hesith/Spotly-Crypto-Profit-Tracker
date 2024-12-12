@@ -19,7 +19,7 @@ const renderScene = SceneMap({
 
 const routes = [
   { key: 'first', title: 'Watch List' },
-  { key: 'second', title: 'Second' },
+  { key: 'second', title: 'Insights' },
 ]; 
 
 
