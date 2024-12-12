@@ -108,7 +108,7 @@ export default function WatchList(){
           <Text style={[{fontSize: 16}, 
             (parseFloat(pnl.toString()) > 0)? styles.TextProfit : (parseFloat(pnl.toString()) < 0)? styles.TextLoss : styles.TextPNL, 
             styles.FontPrice]}>  
-            {PriceData == null ? '-- --' : pnl == '0.00' ? '0.00' :(parseFloat(pnl.toString())+0.02).toFixed(2)} 
+            {PriceData == null ? '-- --' : pnl == '0.00' ? '0.00' : Math.round(parseFloat(pnl.toString())+0.02)} 
           </Text> 
         </View>
 

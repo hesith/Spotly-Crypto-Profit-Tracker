@@ -5,14 +5,18 @@ import WatchList from './WatchList';
 import CoinSearch from './CoinSearch';
 import { styles } from '../styles';
 import { Text } from "@ui-kitten/components";
+import Insights from './Insights';
 
 const watchList = ()=>{
   return (<WatchList></WatchList>)
 }
+const insights = ()=>{
+  return (<Insights></Insights>)
+}
 
 const renderScene = SceneMap({
   first: watchList,
-  second: watchList,
+  second: insights,
 });
 
 

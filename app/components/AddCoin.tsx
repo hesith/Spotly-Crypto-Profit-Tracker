@@ -127,7 +127,7 @@ export default function AddCoin(props:any){
           <Text style={[{fontSize: 16}, 
             (parseInt(pnl) > 0)? styles.TextProfit : (parseInt(pnl) < 0)? styles.TextLoss : styles.TextPNL, 
             styles.FontPrice]}>           
-            {pnl == '0.00' ? '--' : pnl}
+            {pnl == '0.00' || isNaN(parseFloat(pnl)) ? '--' : pnl}
           </Text>
           
           </Text>
