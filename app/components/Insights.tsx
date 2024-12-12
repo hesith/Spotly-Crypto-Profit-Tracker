@@ -1,27 +1,112 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { styles } from "../styles";
 import { ScrollView, Text, View, useWindowDimensions } from "react-native";
 import Pie from "./Pie";
+import HorizontalBar from "./HorizontalBar";
+import PieChartSymbol from "../classes/PieChartSymbol";
+import WatchListManager from "../classes/WatchListManager";
+import WatchListSymbolDescription from "../classes/WatchListSymbolDescription";
+import BarChartSymbol from "../classes/BarChartSymbol";
+import CoinDataManager from "../classes/CoinDataManager";
 
 export default function Insights(){
     const layout = useWindowDimensions();
 
+    const[WLSource,setWLSource] = useState<(WatchListSymbolDescription|undefined)[]|null>(null);
+    const[PriceData,setPriceData] = useState<any>(null);
+
+    const[PieData,setPieData] = useState<PieChartSymbol[]>([]);
+    const[BarData,setBarData] = useState<BarChartSymbol[]>([]);
+
+    
+    useEffect(() => {
+        const LoadSpotWatchList = async () => {
+        var wlSource = await WatchListManager.GetSpotWatchList();
+    
+        setWLSource(await wlSource);
+
+        //
+        let dataArr: any = [];
+    
+        wlSource?.forEach(element => {
+            let inv = parseFloat(element?.investment == undefined ? '0': element?.investment);
+            if(inv > 0){
+                let symbExist = PieData.filter(e => e.text == element?.symbol);
+                dataArr.push(new PieChartSymbol(
+                    inv,
+                    symbExist.length > 0 ? symbExist[0].color : GetRandomColor(),
+                    element?.symbol
+                ))
+            }
+        });
+        setPieData(dataArr);
+        //
+
+        }
+ 
+        LoadSpotWatchList()  
+
+        
+      }, [WLSource]);
+
+      useEffect(()=>{
+        const GetPrices = async () => {
+            let data = await CoinDataManager.getSnapshot();
+
+            let dataArr: any[] = [];
+
+            WLSource?.forEach(element => {
+                let lastPrice = (data.filter((x: { symbol: string; }) => 
+                        x.symbol == element?.symbol))[0].price_usd;
+
+                let inv = parseFloat(element?.investment == undefined ? '0': element?.investment);
+                let pnl;
+                if (element?.holdingQty != undefined && element?.buyingPrice != undefined){
+                     pnl = ((parseFloat(lastPrice)* parseFloat(element?.holdingQty == undefined ? '0' : element?.holdingQty)) - (parseFloat(element?.buyingPrice)*parseFloat(element?.holdingQty))).toFixed(2);
+                }
+                
+                if(inv > 0){
+                    dataArr.push(new BarChartSymbol(
+                        parseFloat(pnl == undefined ? '0' : pnl),
+                        element?.symbol,
+                        parseFloat(pnl == undefined ? '0' : pnl) > 0 ? 'green' : 'red'
+                    ))
+                }
+            });
+            setBarData(dataArr)
+        }
+        //
+        const interval = setInterval(async() => {
+            GetPrices()
+        }, 1000);
+    
+        return () => clearInterval(interval);
+        //
+    },[BarData]) 
+
+    function GetRandomColor(){
+        let num = Math.floor(1000 + Math.random() * 9000);
+        let color = '#ff' + num.toString();
+        return (color)
+    }
+
     return (
         <>
         <ScrollView contentContainerStyle={[{
-            flex: 1,
             justifyContent: "center",
             alignItems: "center",
-            }, styles.BackgroundColorLight, styles.FlexColumn, styles.paddedView]}>
+            width: layout.width,
+            height: layout.height + 200
+            }, styles.BackgroundColorLight, styles.FlexColumnNowrap, styles.paddedView]}>
 
-            <View
-                style={{width: layout.width - 40, alignItems:'center'}}>
-                <Text style={[{fontSize: 16},styles.FontBasicColor, styles.FontSymbolBold, {marginTop: 10}]}>
+                <Text style={[{fontSize: 16},styles.FontBasicColor, styles.FontSymbolBold, {marginTop: 20}]}>
                     Portfolio Diversification
                 </Text>
-               <Pie></Pie>
-            </View>
-            
+               <Pie {...PieData}></Pie>
+               <Text style={[{fontSize: 16},styles.FontBasicColor, styles.FontSymbolBold, {marginTop: 80}]}>
+                    Portfolio Performance
+                </Text>
+               <HorizontalBar {...BarData}></HorizontalBar>             
 
         </ScrollView>
         </>

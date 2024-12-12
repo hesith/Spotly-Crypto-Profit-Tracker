@@ -6,6 +6,11 @@ export const styles = StyleSheet.create({
         justifyContent: "flex-start",
         flexWrap: "wrap"
     },
+    FlexColumnNowrap:{
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        flexWrap: "nowrap"
+    },
     FlexRow:{
         flexDirection: "row",
         justifyContent: "flex-start",
@@ -21,8 +26,15 @@ export const styles = StyleSheet.create({
         alignSelf: "center",
         justifyContent: "center"
     },
-    bgcolorYellowtest:{
-        backgroundColor: "yellow"
+    barChartText:{
+        color: "white",
+        fontFamily:'MontserratRegular',
+        fontSize: 7
+    },
+    barChartValue:{
+        color: "#8F9BB3",
+        fontFamily:'MangabeyRegular',
+        fontSize: 10
     },
     priceArrow:{
         height:20,
@@ -119,5 +131,13 @@ export const styles = StyleSheet.create({
     },
     TextPNL:{
         color: 'white'
+    },
+    noDataBorder:{
+        borderWidth: 1,
+        borderColor: 'rgba(250, 250, 250, 0.1)',
+        borderStyle: 'dashed',
+        height: 100,
+        marginTop: 30,
+        padding: 30
     }
 })

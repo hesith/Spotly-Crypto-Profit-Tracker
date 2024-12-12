@@ -33,7 +33,7 @@ export default function Home(){
   const [index, setIndex] = React.useState(0);
 
   function renderTabBar(props:any){
-  
+    
     return(<TabBar 
         {...props}
         activeColor={'white'}

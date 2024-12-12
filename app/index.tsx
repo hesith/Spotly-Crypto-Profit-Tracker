@@ -6,7 +6,8 @@ import Home from "./components/Home";
 import LoadingIndicator from "./components/LoadingIndicator";
 
 export default function Index() {
-  
+  console.log("sdasdasdad")
+
   ConfigureCoinData()
 
   const [coinSource, setCoinSource] = useState<any>();

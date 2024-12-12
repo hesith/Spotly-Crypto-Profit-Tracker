@@ -40,6 +40,7 @@ export default function WatchList(){
       setPriceData(await ss);
       CoinDataManager.setSnapshot(await ss);
     }
+
     const interval = setInterval(async() => {
       GetCoinSnapshot()  
     }, 10000);
@@ -108,7 +109,7 @@ export default function WatchList(){
           <Text style={[{fontSize: 16}, 
             (parseFloat(pnl.toString()) > 0)? styles.TextProfit : (parseFloat(pnl.toString()) < 0)? styles.TextLoss : styles.TextPNL, 
             styles.FontPrice]}>  
-            {PriceData == null ? '-- --' : pnl == '0.00' ? '0.00' : Math.round(parseFloat(pnl.toString())+0.02)} 
+            { (PriceData == null  || isNaN(parseFloat(pnl.toString())))? '-- --' : pnl == '0.00' ? '0.00' : Math.round(parseFloat(pnl.toString())+0.02)} 
           </Text> 
         </View>
 

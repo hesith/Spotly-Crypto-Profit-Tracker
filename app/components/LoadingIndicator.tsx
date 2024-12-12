@@ -1,17 +1,17 @@
 import { Spinner } from "@ui-kitten/components";
 import { View } from "react-native";
+import { styles } from "../styles";
 
 export default function LoadingIndicator(){
     return (
         <View
-          style={{
+          style={[{
             flex: 1,
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: 'skyblue'
-          }}
+          }, styles.BackgroundColorBasic]}
         >
-              <Spinner size="giant"/>         
+              <Spinner size="giant" status="success"/>         
 
         </View>
 )

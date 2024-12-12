@@ -1,68 +1,44 @@
-import { View, Text } from 'react-native';
+import { View, Text, useWindowDimensions } from 'react-native';
 import {PieChart} from 'react-native-gifted-charts';
-import { useEffect, useState } from 'react';
-import WatchListManager from '../classes/WatchListManager';
-import WatchListSymbolDescription from '../classes/WatchListSymbolDescription';
 import PieChartSymbol from '../classes/PieChartSymbol';
+import NoData from './NoData';
+import { styles } from '../styles';
 
 
-export default function Pie(){
+export default function Pie(props : PieChartSymbol[]){
+    const layout = useWindowDimensions();
 
-    const[WLSource,setWLSource] = useState<(WatchListSymbolDescription|undefined)[]|null>(null);
-    const[PieData,setPieData] = useState<PieChartSymbol[]>([]);
+    var dataArr: PieChartSymbol[] = [];
 
-    
-    useEffect(() => {
-        const LoadSpotWatchList = async () => {
-        var wlSource = await WatchListManager.GetSpotWatchList();
-    
-        setWLSource(await wlSource);
-
-        //
-        let dataArr: any = [];
-    
-        wlSource?.forEach(element => {
-            let inv = parseFloat(element?.investment == undefined ? '0': element?.investment);
-            if(inv > 0){
-                let symbExist = PieData.filter(e => e.text == element?.symbol);
-                dataArr.push(new PieChartSymbol(
-                    inv,
-                    symbExist.length > 0 ? symbExist[0].color : GetRandomColor(),
-                    element?.symbol
-                ))
-            }
-        });
-        setPieData(dataArr);
-        //
-
+    if(Object.keys(props).length > 0){ 
+        let arr = [];
+        for(let k in props){
+           arr.push(props[k])
         }
+        dataArr = arr;
 
-        LoadSpotWatchList()  
-      }, [WLSource]);
-
-
-    function GetRandomColor(){
-        let num = Math.floor(1000 + Math.random() * 9000);
-        let color = '#ff' + num.toString();
-        return (color)
     }
- 
 
-
-
+    if(dataArr.length > 0){
     return ( 
-        <View style={{paddingTop: 30}}>
+        <View style={{paddingTop: 30, width: layout.width -40}}>
         <PieChart
         showText
         textColor="white"
-        radius={150}
+        radius={(layout.width - 40) * 0.5}
         textSize={14}
-        data={PieData == null ? [] : PieData}
+        data={dataArr == null ? [] : dataArr}
         font="MontserratBold"
         donut
         backgroundColor= '#222B45'
         />
         </View>
-    
     )
+    }else{
+        return(
+            <View style={[{paddingTop: 30}, styles.noDataBorder]}>
+                <NoData></NoData>
+            </View>
+        )
+    }
 }
