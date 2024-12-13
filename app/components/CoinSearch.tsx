@@ -6,6 +6,7 @@ import CoinDataManager from "../classes/CoinDataManager";
 import { List } from "ts-generic-collections-linq";
 import WatchListManager from "../classes/WatchListManager";
 import WatchListSymbolDescription from "../classes/WatchListSymbolDescription";
+import React from "react";
 
 export default function CoinSearch(){
     const layout = useWindowDimensions();

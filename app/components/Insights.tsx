@@ -16,6 +16,7 @@ export default function Insights(){
     const[PriceData,setPriceData] = useState<any>(null);
 
     const[PieData,setPieData] = useState<PieChartSymbol[]>([]);
+    const[RiskPieData,setRiskPieData] = useState<PieChartSymbol[]>([]);
     const[BarData,setBarData] = useState<BarChartSymbol[]>([]);
 
     
@@ -24,12 +25,18 @@ export default function Insights(){
         var wlSource = await WatchListManager.GetSpotWatchList();
     
         setWLSource(await wlSource);
-
         //
         let dataArr: any = [];
-    
+        let riskDataArr: any = [];
+
+        let lowRobj: any = new Object();
+        let midRobj: any = new Object();
+        let highRobj: any = new Object();
+
         wlSource?.forEach(element => {
             let inv = parseFloat(element?.investment == undefined ? '0': element?.investment);
+            let srcItem = PriceData?.filter((item: { symbol: any; }) => item.symbol == element?.symbol)[0];
+
             if(inv > 0){
                 let symbExist = PieData.filter(e => e.text == element?.symbol);
                 dataArr.push(new PieChartSymbol(
@@ -37,21 +44,63 @@ export default function Insights(){
                     symbExist.length > 0 ? symbExist[0].color : GetRandomColor(),
                     element?.symbol
                 ))
+
+                if(srcItem?.market_cap_usd > 10000000000){
+                    if(Object.keys(lowRobj).length > 0){
+                        lowRobj.value  += inv
+                    }else{
+                        lowRobj = (new PieChartSymbol(
+                            inv,
+                            'lightgreen',
+                            'Low'
+                        ))
+                    }
+                 
+                }else if(srcItem?.market_cap_usd > 1000000000){
+                    if(Object.keys(midRobj).length > 0){
+                        midRobj.value  += inv
+                    }else{
+                        midRobj = (new PieChartSymbol(
+                            inv,
+                            'orange',
+                            'Medium'
+                        ))
+                    }
+                   
+                }else{
+                    if(Object.keys(highRobj).length > 0){
+                        highRobj.value  += inv
+                    }else{
+                        highRobj = (new PieChartSymbol(
+                            inv,
+                            'tomato',
+                            'High'
+                        ))
+                    }
+            
+                }
             }
         });
+        if(Object.keys(lowRobj).length > 0){ riskDataArr.push(lowRobj) }
+        if(Object.keys(midRobj).length > 0){ riskDataArr.push(midRobj) }
+        if(Object.keys(highRobj).length > 0){ riskDataArr.push(highRobj) }
+
+
         setPieData(dataArr);
+
+
+        setRiskPieData(riskDataArr);
+
         //
-
         }
- 
-        LoadSpotWatchList()  
 
-        
+        LoadSpotWatchList()    
       }, [WLSource]);
 
       useEffect(()=>{
         const GetPrices = async () => {
             let data = await CoinDataManager.getSnapshot();
+            setPriceData(await data);
 
             let dataArr: any[] = [];
 
@@ -66,11 +115,13 @@ export default function Insights(){
                 }
                 
                 if(inv > 0){
+
                     dataArr.push(new BarChartSymbol(
                         parseFloat(pnl == undefined ? '0' : pnl),
                         element?.symbol,
                         parseFloat(pnl == undefined ? '0' : pnl) > 0 ? 'green' : 'red'
                     ))
+                    
                 }
             });
             setBarData(dataArr)
@@ -86,7 +137,7 @@ export default function Insights(){
 
     function GetRandomColor(){
         let num = Math.floor(1000 + Math.random() * 9000);
-        let color = '#ff' + num.toString();
+        let color = '#ea' + num.toString();
         return (color)
     }
 
@@ -95,8 +146,7 @@ export default function Insights(){
         <ScrollView contentContainerStyle={[{
             justifyContent: "center",
             alignItems: "center",
-            width: layout.width,
-            height: layout.height + 200
+            width: layout.width, 
             }, styles.BackgroundColorLight, styles.FlexColumnNowrap, styles.paddedView]}>
 
                 <Text style={[{fontSize: 16},styles.FontBasicColor, styles.FontSymbolBold, {marginTop: 20}]}>
@@ -104,7 +154,11 @@ export default function Insights(){
                 </Text>
                <Pie {...PieData}></Pie>
                <Text style={[{fontSize: 16},styles.FontBasicColor, styles.FontSymbolBold, {marginTop: 80}]}>
-                    Portfolio Performance
+                    Risk by Market Cap
+                </Text>
+               <Pie {...RiskPieData}></Pie>
+               <Text style={[{fontSize: 16},styles.FontBasicColor, styles.FontSymbolBold, {marginTop: 80}]}>
+                    Asset Performance
                 </Text>
                <HorizontalBar {...BarData}></HorizontalBar>             
 

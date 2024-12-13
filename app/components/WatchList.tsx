@@ -6,6 +6,7 @@ import WatchListManager from "../classes/WatchListManager";
 import WatchListSymbolDescription from "../classes/WatchListSymbolDescription";
 import NoData from "./NoData";
 import { styles } from "../styles";
+import React from "react";
 
 export default function WatchList(){
   const layout = useWindowDimensions();

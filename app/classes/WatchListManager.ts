@@ -5,8 +5,10 @@ export default class WatchListManager{
     static spotWatchList:(WatchListSymbolDescription | undefined) [] = [];
 
     static AddToSpotWatchList(obj: WatchListSymbolDescription){
-        this.spotWatchList.push(obj);
-        this.SetSpotWatchList();
+        if(this.spotWatchList.filter(element => element?.id == obj.id).length == 0){
+            this.spotWatchList.push(obj);
+            this.SetSpotWatchList();
+        }
     }
 
     static ReomveFromSpotWatchList(id: string){
