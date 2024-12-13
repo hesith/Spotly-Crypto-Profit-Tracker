@@ -45,7 +45,11 @@ export const styles = StyleSheet.create({
         height:12,
         width:15,
         verticalAlign:'bottom',
-},
+    },
+    bin:{
+        height:30,
+        width:20
+    },
     input:{
         height: 30,
         borderWidth: 0,
@@ -101,6 +105,10 @@ export const styles = StyleSheet.create({
     },
     BackgroundColorLight:{
         backgroundColor: '#222B45'
+    },
+    BackgroundColorSelected:{
+        backgroundColor: 'rgba(218, 61, 61, 0.74)',
+        opacity: 0.5
     },
     paddedViewWithoutBottom:{
         paddingTop: 20,

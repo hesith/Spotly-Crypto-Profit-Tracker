@@ -7,6 +7,7 @@ import { List } from "ts-generic-collections-linq";
 import WatchListManager from "../classes/WatchListManager";
 import WatchListSymbolDescription from "../classes/WatchListSymbolDescription";
 import React from "react";
+import CommonRepo from "../classes/CommonRepo";
 
 export default function CoinSearch(){
     const layout = useWindowDimensions();
@@ -21,6 +22,7 @@ export default function CoinSearch(){
 
     const SearchIcon = (): IconElement => (
         <Icon 
+          fill='#8F9BB3'
           name='search'
         />
       );
@@ -87,6 +89,7 @@ export default function CoinSearch(){
     }
 
     function onItemSelected(item: any){
+      CommonRepo.ClearSelectedWatchListItems();
       acRef.current.clear();
       setTypedText("");
       setAcDropDownShown(false);
@@ -103,6 +106,7 @@ export default function CoinSearch(){
     }
 
     function onFocus(){
+      CommonRepo.ClearSelectedWatchListItems();
       setAcDropDownShown(true);
     }
 

@@ -6,6 +6,7 @@ import CoinSearch from './CoinSearch';
 import { styles } from '../styles'; 
 import { Text } from "@ui-kitten/components";
 import Insights from './Insights';
+import CommonRepo from '../classes/CommonRepo';
 
 const watchList = ()=>{
   return (<WatchList></WatchList>)
@@ -72,7 +73,7 @@ export default function Home(){
           </TouchableOpacity>
         )} 
     /> 
-    
+
     </>
   )};
 
@@ -90,7 +91,10 @@ export default function Home(){
     style={{borderTopWidth: 1.5, borderTopColor: '#222B45'}}
       navigationState={{ index, routes }}
       renderScene={renderScene}
-      onIndexChange={setIndex}
+      onIndexChange={()=> {
+        CommonRepo.ClearSelectedWatchListItems();
+        setIndex
+      }}
       initialLayout={{ width: layout.width }} 
       renderTabBar={renderTabBar}
     />

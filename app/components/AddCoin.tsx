@@ -4,6 +4,7 @@ import {styles} from '../styles';
 import WatchListManager from "../classes/WatchListManager";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import CommonRepo from "../classes/CommonRepo";
 
 export default function AddCoin(props:any){
   const layout = useWindowDimensions();
@@ -71,20 +72,26 @@ export default function AddCoin(props:any){
         WatchListManager.ReomveFromSpotWatchList(props.id)
       }
       else{
-        
+        CommonRepo.AddRemoveFromSelectedWatchListItems(props.id);
       }
     }
 
     function onPressed(){
       try{
-        navigation.navigate({name:'components/InvestmentDetails', params:{priceObj:coinData[0], invObj:props}} as never);    
+        if(selectedWLitems.length > 0){
+          CommonRepo.AddRemoveFromSelectedWatchListItems(props.id);
+        }else{
+          navigation.navigate({name:'components/InvestmentDetails', params:{priceObj:coinData[0], invObj:props}} as never);    
+        }
       }
       catch{}
     }
+    let selectedWLitems = CommonRepo.GetSelectedWatchListItems();
+    let isSelected = selectedWLitems.filter(item => item == props.id).length; 
 
     return (
 
-      <View style={[{marginTop: 1},styles.BackgroundColorBasic]}>
+      <View style={[{marginTop: 1}, isSelected ? styles.BackgroundColorSelected : styles.BackgroundColorBasic]}>
       <TouchableOpacity
         style={[{height: 70, width: layout.width }]}  
         onLongPress={()=> onLongPressed()}

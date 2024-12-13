@@ -8,7 +8,8 @@ import NoData from "./NoData";
 import { styles } from "../styles";
 import React from "react";
 import Logo from "./Logo";
-import { Icon, IconElement } from "@ui-kitten/components";
+import { Button, Icon, IconElement } from "@ui-kitten/components";
+import CommonRepo from "../classes/CommonRepo";
 
 export default function WatchList(){
   const layout = useWindowDimensions();
@@ -77,6 +78,19 @@ export default function WatchList(){
 
       var pnl = (totCurrentValue == undefined || totInvestment == undefined)? 0 : (totCurrentValue - parseFloat(totInvestment)).toFixed(2);
       
+      let selected = CommonRepo.GetSelectedWatchListItems();
+      let selecteditems = selected.length; 
+
+      const BinIcon= (): IconElement =>{
+        return (
+  
+          <Icon
+            fill='#8F9BB3'
+            name='trash-2'
+            style={[{opacity: selecteditems > 0 ? 1 : 0}, styles.bin]} 
+          />
+        );
+      }
 
       const ArrowIcon = (): IconElement =>{
         if(SortBySymbolAscending || SortByInvestmentAscending){
@@ -139,6 +153,13 @@ export default function WatchList(){
 
       }
 
+      function onDeleteSelected(){
+        selected.forEach(id =>{
+          WatchListManager.ReomveFromSpotWatchList(id);
+        })
+        CommonRepo.ClearSelectedWatchListItems();
+      }
+
       if(WLSource != null){
         return (
           <>
@@ -146,7 +167,7 @@ export default function WatchList(){
 
 
     <View style={[{marginTop: 1, display: (WLSource.length > 1) ? 'flex' : 'none'}, styles.BackgroundColorBasic]}>
-      <TouchableOpacity
+      <View
         style={[{height: 30, width: layout.width }]}  
       >
         <View style={[{ height: 30},styles.FlexRow]}>
@@ -166,9 +187,14 @@ export default function WatchList(){
             Investment {SortedBySymbol == false ? <ArrowIcon></ArrowIcon> : <>    </>}
              
           </Text>
- 
+          <Text 
+          style={{width: layout.width * 0.25, textAlign: 'center', textAlignVertical: 'center'}}
+          onPress={()=> onDeleteSelected()}
+          >
+            <Button onPress={()=> onDeleteSelected()} appearance="ghost" accessoryLeft={BinIcon}/> 
+          </Text>
         </View>
-      </TouchableOpacity>
+      </View>
       </View>
       
 

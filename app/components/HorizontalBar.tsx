@@ -7,7 +7,6 @@ import NoData from "./NoData";
 export default function HorizontalBar(props : BarChartSymbol[]){
     const layout = useWindowDimensions();
     
-
     var dataArr: BarChartSymbol[] = [];
 
     if(Object.keys(props).length > 0){ 
