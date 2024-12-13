@@ -8,6 +8,7 @@ import InvestmentDetails from "./components/InvestmentDetails";
 import { styles } from './styles';
 import Index from './index';
 import LoadingIndicator from './components/LoadingIndicator';
+import React from 'react';
 
 const Stack = createNativeStackNavigator();
 

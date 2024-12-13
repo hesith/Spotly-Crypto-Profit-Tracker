@@ -37,7 +37,7 @@ export default function Pie(props : PieChartSymbol[]){
     }else{
         return(
             <View style={[{paddingTop: 30}, styles.noDataBorder]}>
-                <NoData></NoData>
+                <NoData {...{'type':'chart'}}></NoData>
             </View>
         )
     }

@@ -147,6 +147,7 @@ export default function Insights(){
             justifyContent: "center",
             alignItems: "center",
             width: layout.width, 
+            height: 'auto'
             }, styles.BackgroundColorLight, styles.FlexColumnNowrap, styles.paddedView]}>
 
                 <Text style={[{fontSize: 16},styles.FontBasicColor, styles.FontSymbolBold, {marginTop: 20}]}>

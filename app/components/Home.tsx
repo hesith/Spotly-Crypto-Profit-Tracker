@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { TabView, SceneMap, TabBar, TabBarItem } from 'react-native-tab-view';
-import { TouchableOpacity, View, useWindowDimensions } from 'react-native';
+import { Button, TouchableOpacity, View, useWindowDimensions, Image, ToastAndroid } from 'react-native';
 import WatchList from './WatchList';
 import CoinSearch from './CoinSearch';
-import { styles } from '../styles';
+import { styles } from '../styles'; 
 import { Text } from "@ui-kitten/components";
 import Insights from './Insights';
 
@@ -20,7 +20,6 @@ const renderScene = SceneMap({
 });
 
 
-
 const routes = [
   { key: 'first', title: 'Watch List' },
   { key: 'second', title: 'Insights' },
@@ -31,10 +30,22 @@ export default function Home(){
     
   const layout = useWindowDimensions();
   const [index, setIndex] = React.useState(0);
+  const [ToasterShown, setToasterShown] = React.useState(false);
+
+  function showToast(){
+    if(!ToasterShown){
+      ToastAndroid.showWithGravity("Press and Hold to remove an item from Watch List", ToastAndroid.LONG, ToastAndroid.CENTER);
+      setToasterShown(true);
+    }
+  }
+
+  showToast();
 
   function renderTabBar(props:any){
     
-    return(<TabBar 
+    return(
+      <>
+    <TabBar 
         {...props}
         activeColor={'white'}
         inactiveColor={'black'}
@@ -61,12 +72,22 @@ export default function Home(){
           </TouchableOpacity>
         )} 
     /> 
+    
+    </>
   )};
 
   return ( 
     <>
-    <CoinSearch></CoinSearch>
+    <View style={[{borderTopWidth: 1.5,borderTopColor: '#222B45'},styles.FlexRow, styles.BackgroundColorLight]}>
+      <TouchableOpacity
+        style={[{width: 50, justifyContent: 'center', alignItems:'center'}, styles.BackgroundColorLight]}
+      >
+        <Image style={{width: 40, height: 40, opacity: 0.7}} source={require('../../assets/images/s.png')}></Image>
+      </TouchableOpacity>
+      <CoinSearch></CoinSearch>
+    </View>
     <TabView 
+    style={{borderTopWidth: 1.5, borderTopColor: '#222B45'}}
       navigationState={{ index, routes }}
       renderScene={renderScene}
       onIndexChange={setIndex}

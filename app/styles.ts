@@ -41,6 +41,11 @@ export const styles = StyleSheet.create({
         width:15,
         verticalAlign:'top'
     },
+    sortArrow:{
+        height:12,
+        width:15,
+        verticalAlign:'bottom',
+},
     input:{
         height: 30,
         borderWidth: 0,
@@ -90,6 +95,9 @@ export const styles = StyleSheet.create({
     },
     BackgroundColorBasic:{
         backgroundColor: '#101426'
+    },
+    BackgroundColorMedium:{
+        backgroundColor: '#151A30'
     },
     BackgroundColorLight:{
         backgroundColor: '#222B45'

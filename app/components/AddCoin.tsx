@@ -64,9 +64,15 @@ export default function AddCoin(props:any){
 
     var pnl = ((parseFloat(lastPrice)*props.holdingQty) - (props.buyingPrice*props.holdingQty)).toFixed(2);
 
-    function onLongPressed(){
+    async function onLongPressed(){
       Vibration.vibrate(50);
-      WatchListManager.ReomveFromSpotWatchList(props.id)
+
+      if((await WatchListManager.GetSpotWatchList()).length == 1){
+        WatchListManager.ReomveFromSpotWatchList(props.id)
+      }
+      else{
+        
+      }
     }
 
     function onPressed(){

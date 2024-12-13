@@ -35,6 +35,12 @@ export default class WatchListManager{
         this.SetSpotWatchList();
     }
 
+    static async ReplaceSpotWatchList(newObj : (WatchListSymbolDescription | undefined) []){
+        this.spotWatchList = newObj;
+        var content = JSON.stringify(this.spotWatchList);
+        return  await asyncStorageService.storeData('spotWL', content)
+    }
+
     static async SetSpotWatchList(){
         var content = JSON.stringify(this.spotWatchList);
         return await asyncStorageService.storeData('spotWL', content)
@@ -42,7 +48,6 @@ export default class WatchListManager{
 
     static async GetSpotWatchList(){
         try{
-            //console.log("Reading Spot Watch List...")
             var content =  await asyncStorageService.readData('spotWL');
  
             if( content != null){

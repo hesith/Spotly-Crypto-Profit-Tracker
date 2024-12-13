@@ -2,7 +2,8 @@ import { Spinner, styled, Text } from "@ui-kitten/components";
 import { View } from "react-native";
 import { styles } from "../styles";
 
-export default function NoData(){
+export default function NoData(props : any){
+
     return (
         <View
           style={[{
@@ -12,7 +13,9 @@ export default function NoData(){
           },
         styles.BackgroundColorLight]}
         >
-              <Text style={[styles.FontSymbol, styles.FontHintColor]}>Add Crypto to continue</Text>        
+              <Text style={[styles.FontSymbol, styles.FontHintColor]}>
+                {props.type == 'chart' ?  'Add Investment to continue' : 'Add Crypto to continue'}
+                </Text>        
 
         </View>
 )

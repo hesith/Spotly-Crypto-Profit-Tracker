@@ -65,7 +65,7 @@ export default function CoinSearch(){
           onPress={()=> {
             onItemSelected(item);
           }}
-          style={[{display: (acDropDownShown == true) ? 'flex' : 'none' }]}
+          style={[{display: (acDropDownShown == true) ? 'flex' : 'none' }, styles.BackgroundColorMedium]}
         />
         </>
         )
@@ -110,9 +110,9 @@ export default function CoinSearch(){
     <>
     <Autocomplete 
     textStyle={styles.FontSymbol}
-    style={[{height: 50, width: layout.width}, styles.CenterContent, styles.FontSymbol]}
+    style={[{height: 50, width: layout.width - 51.5}, styles.CenterContent, styles.FontSymbol]}
     value={typedText}
-    placeholder="Search"
+    placeholder="Search crypto.."
     onChangeText={(newText)=> {
       onTyping(newText);
     }} 

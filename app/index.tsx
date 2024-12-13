@@ -3,10 +3,9 @@ import { useEffect, useState } from "react";
 import CoinDataManager from "./classes/CoinDataManager";
 import Configurations from "./classes/Configurations";
 import Home from "./components/Home";
-import LoadingIndicator from "./components/LoadingIndicator";
+import Logo from "./components/Logo";
 
 export default function Index() {
-  console.log("sdasdasdad")
 
   ConfigureCoinData()
 
@@ -30,7 +29,7 @@ export default function Index() {
     return <Home></Home> 
   }else
   {
-    return <LoadingIndicator></LoadingIndicator> 
+    return <Logo></Logo> 
   }
 
 

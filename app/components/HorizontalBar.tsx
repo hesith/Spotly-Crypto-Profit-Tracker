@@ -54,7 +54,7 @@ export default function HorizontalBar(props : BarChartSymbol[]){
     }else{
     return(
         <View style={[{paddingTop: 30}, styles.noDataBorder]}>
-            <NoData></NoData>
+            <NoData {...{'type':'chart'}}></NoData>
         </View>
     )
 }
