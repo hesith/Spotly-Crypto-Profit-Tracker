@@ -9,6 +9,7 @@ import { styles } from './styles';
 import Index from './index';
 import LoadingIndicator from './components/LoadingIndicator';
 import React from 'react';
+import Help from './components/Help';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,7 @@ export default function RootLayout() {
         <Stack.Screen name="components/LoadingIndicator" component={LoadingIndicator}/>
         <Stack.Screen name="components/WatchList" component={WatchList}/>
         <Stack.Screen name="components/InvestmentDetails" component={InvestmentDetails} options={{headerShown: true, title:'', headerStyle: styles.BackgroundColorBasic, headerTintColor: 'white'}}/>
+        <Stack.Screen name="components/Help" component={Help} options={{headerShown: true, title:'', headerStyle: styles.BackgroundColorBasic, headerTintColor: 'white'}}/>
       </Stack.Navigator>
     
     </ApplicationProvider>

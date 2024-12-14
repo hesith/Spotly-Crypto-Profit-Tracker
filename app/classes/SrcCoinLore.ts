@@ -10,6 +10,8 @@ export default class SrcCoinLore{
 
     resourceGlobalCoins:string;
 
+    static symbolDownloadProgess = 0;
+
     constructor(){
         this.baseEndpoint = "https://api.coinlore.net/api/";
         this.resourceTicker = "";
@@ -31,7 +33,8 @@ export default class SrcCoinLore{
         return (await httpService.sendGetRequest(this.baseEndpoint+this.resourceGlobalCoins));    
     }
 
-    async getAllSymbolNameData(){
+    async  getAllSymbolNameData(){
+        this.updateSymbolDownloadProgess(0);
 
         var resultGlobalCoinsData = await this.getGlobalCoinData();
 
@@ -55,10 +58,15 @@ export default class SrcCoinLore{
 
                 symbolNamesArr.push(JSON.stringify(symbDetails));        
             });
-
+            this.updateSymbolDownloadProgess(i/pages);
         }
+        this.updateSymbolDownloadProgess(0);
 
         return symbolNamesArr;
+    }
+
+    updateSymbolDownloadProgess(progress : number){
+        SrcCoinLore.symbolDownloadProgess = progress;
     }
 
 }

@@ -155,5 +155,10 @@ export const styles = StyleSheet.create({
         height: 100,
         marginTop: 30,
         padding: 30
+    },
+    circularProgessText:{
+        fontSize: 10,
+        fontFamily:'MontserratRegular'
     }
 })
+

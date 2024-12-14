@@ -26,6 +26,14 @@
     },
     "plugins": [
       "expo-router",
+      [ 
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#101426",
+          "image": "./assets/images/spotly.png",
+          "imageWidth": 200
+        }
+      ],
       [
         "expo-font",
       {

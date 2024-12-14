@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import CoinDataManager from "./classes/CoinDataManager";
 import Configurations from "./classes/Configurations";
 import Home from "./components/Home";
-import Logo from "./components/Logo";
+import LoadingIndicator from "./components/LoadingIndicator";
 
 export default function Index() {
 
@@ -29,9 +29,8 @@ export default function Index() {
     return <Home></Home> 
   }else
   {
-    return <Logo></Logo> 
+    return <LoadingIndicator></LoadingIndicator> 
   }
-
 
 }
 

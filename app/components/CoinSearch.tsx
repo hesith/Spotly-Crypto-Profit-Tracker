@@ -114,7 +114,7 @@ export default function CoinSearch(){
     <>
     <Autocomplete 
     textStyle={styles.FontSymbol}
-    style={[{height: 50, width: layout.width - 51.5}, styles.CenterContent, styles.FontSymbol]}
+    style={[{height: 50, width: layout.width - 101.5}, styles.CenterContent, styles.FontSymbol]}
     value={typedText}
     placeholder="Search crypto.."
     onChangeText={(newText)=> {
