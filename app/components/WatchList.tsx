@@ -168,9 +168,9 @@ export default function WatchList(){
 
     <View style={[{marginTop: 1, display: (WLSource.length > 1) ? 'flex' : 'none'}, styles.BackgroundColorBasic]}>
       <View
-        style={[{height: 30, width: layout.width }]}  
+        style={[{height: 50, width: layout.width}]}  
       >
-        <View style={[{ height: 30},styles.FlexRow]}>
+        <View style={[{ height: 50 },styles.FlexRow]}>
           <Text 
           style={[{width: layout.width * 0.40, textAlign:"left", fontSize: 12 }, 
             styles.FontSymbolBold, styles.FontHintColor, styles.paddedTextHorizontal, styles.TextVerticalMiddle]}
@@ -191,7 +191,8 @@ export default function WatchList(){
           style={{width: layout.width * 0.25, textAlign: 'center', textAlignVertical: 'center'}}
           onPress={()=> onDeleteSelected()}
           >
-            <Button onPress={()=> onDeleteSelected()} appearance="ghost" accessoryLeft={BinIcon}/> 
+            <Button onPress={()=> onDeleteSelected()} appearance="ghost" accessoryLeft={BinIcon} 
+            style={{width: layout.width * 0.25}}/> 
           </Text>
         </View>
       </View>
