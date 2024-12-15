@@ -24,8 +24,8 @@ export default function RootLayout() {
         <Stack.Screen name="components/Home" component={Home}/>
         <Stack.Screen name="components/LoadingIndicator" component={LoadingIndicator}/>
         <Stack.Screen name="components/WatchList" component={WatchList}/>
-        <Stack.Screen name="components/InvestmentDetails" component={InvestmentDetails} options={{headerShown: true, title:'', headerStyle: styles.BackgroundColorBasic, headerTintColor: 'white'}}/>
-        <Stack.Screen name="components/Help" component={Help} options={{headerShown: true, title:'', headerStyle: styles.BackgroundColorBasic, headerTintColor: 'white'}}/>
+        <Stack.Screen name="components/InvestmentDetails" component={InvestmentDetails} options={{headerShown: true, title:'Investment', headerTitleStyle: styles.FontSymbol, headerStyle: [styles.BackgroundColorBasic], headerTintColor: 'white'}}/>
+        <Stack.Screen name="components/Help" component={Help} options={{headerShown: true, title:'Help', headerTitleStyle: styles.FontSymbol, headerStyle: styles.BackgroundColorBasic, headerTintColor: 'white'}}/>
       </Stack.Navigator>
     
     </ApplicationProvider>

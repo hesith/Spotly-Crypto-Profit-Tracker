@@ -98,18 +98,30 @@ export default function AddCoin(props:any){
         onPress={()=> onPressed()}
       >
         <View style={[styles.FlexRow]}>
-          <Text style={[{width: layout.width * 0.25, textAlign:"left"}, 
+          <Text 
+           onLongPress={()=> onLongPressed()}
+           onPress={()=> onPressed()}
+          style={[{width: layout.width * 0.25, textAlign:"left"}, 
             styles.FontSymbol, styles.FontBasicColor, styles.paddedTextHorizontal, styles.TextVerticalBottom]}>
                 {props.symbol}
           </Text> 
 
-          <Text style={[{width: layout.width * 0.35, textAlign:"right" }, 
+          <Text  
+           onLongPress={()=> onLongPressed()}
+           onPress={()=> onPressed()}
+          style={[{width: layout.width * 0.35, textAlign:"right" }, 
             styles.FontPrice, styles.TextVerticalBottom]}>
-            <Text style={[{fontSize: 8},styles.FontSymbol, styles.FontHintColor]}>Buying Price  </Text>
+            <Text  
+           onLongPress={()=> onLongPressed()}
+             onPress={()=> onPressed()}
+            style={[{fontSize: 8},styles.FontSymbol, styles.FontHintColor]}>Buying Price  </Text>
             {props.buyingPrice == 0 ? '-- --' : props.buyingPrice}
           </Text>
 
-          <Text style={[{width: layout.width * 0.4, textAlign:"right", color: (PriceDiff>0)? 'green' : (PriceDiff<0)? 'red' : 'white'}, 
+          <Text  
+           onLongPress={()=> onLongPressed()}
+           onPress={()=> onPressed()}
+          style={[{width: layout.width * 0.4, textAlign:"right", color: (PriceDiff>0)? 'green' : (PriceDiff<0)? 'red' : 'white'}, 
             styles.FontPrice, styles.paddedTextHorizontal]}> 
             {lastPrice}  
             <ArrowIcon></ArrowIcon>   
@@ -117,27 +129,51 @@ export default function AddCoin(props:any){
         </View>
 
         <View style={[styles.FlexRow]}>
-          <Text style={[{width: layout.width * 0.25, color:"white", textAlign:"left", fontSize: 10 }, 
+          <Text  
+           onLongPress={()=> onLongPressed()}
+           onPress={()=> onPressed()}
+          style={[{width: layout.width * 0.25, color:"white", textAlign:"left", fontSize: 10 }, 
             styles.FontBasicColor, styles.paddedTextHorizontal, styles.FontSymbol, styles.TextVerticalBottom]}>
             {props.holdingQty == 0 ? '': props.holdingQty}
           </Text>
 
-          <Text style={[{width: layout.width * 0.35, textAlign:"right"}, 
+          <Text  
+           onLongPress={()=> onLongPressed()}
+           onPress={()=> onPressed()}
+          style={[{width: layout.width * 0.35, textAlign:"right"}, 
             styles.TextVerticalBottom, styles.FontPrice]}>           
-          <Text style={[{fontSize: 8},styles.FontSymbol, styles.FontHintColor]}>Investment  </Text>
-          <Text style={[{fontSize: 14},
+          <Text  
+           onLongPress={()=> onLongPressed()}
+           onPress={()=> onPressed()}
+          style={[{fontSize: 8},styles.FontSymbol, styles.FontHintColor]}>Investment  </Text>
+          <Text  
+           onLongPress={()=> onLongPressed()}
+           onPress={()=> onPressed()}
+          style={[{fontSize: 14},
             styles.FontSymbol]}>$ </Text>
           {props.investment == '0' ?  '--' : parseFloat(props.investment).toFixed(2) }   
           </Text>
 
-          <Text style={[{width: layout.width * 0.4, textAlign:"right"}, 
+          <Text  
+           onLongPress={()=> onLongPressed()}
+           onPress={()=> onPressed()}
+          style={[{width: layout.width * 0.4, textAlign:"right"}, 
             styles.TextVerticalBottom, styles.paddedViewHorizontal
           ]}>
-          <Text style={[{fontSize: 8},styles.FontSymbol, styles.FontHintColor]}>Un. PNL  </Text>
-          <Text style={[{fontSize: 14},
+          <Text  
+           onLongPress={()=> onLongPressed()}
+           onPress={()=> onPressed()}
+          style={[{fontSize: 8},styles.FontSymbol, styles.FontHintColor]}>Un. PNL  </Text>
+          <Text  
+           onLongPress={()=> onLongPressed()}
+           onPress={()=> onPressed()}
+          style={[{fontSize: 14},
             (parseInt(pnl) > 0)? styles.TextProfit : (parseInt(pnl) < 0)? styles.TextLoss : styles.TextPNL, 
             styles.FontSymbol]}>{pnl == '0.00' ? '':'$'} </Text>
-          <Text style={[{fontSize: 16}, 
+          <Text  
+           onLongPress={()=> onLongPressed()}
+           onPress={()=> onPressed()}
+          style={[{fontSize: 16}, 
             (parseInt(pnl) > 0)? styles.TextProfit : (parseInt(pnl) < 0)? styles.TextLoss : styles.TextPNL, 
             styles.FontPrice]}>           
             {pnl == '0.00' || isNaN(parseFloat(pnl)) ? '--' : pnl}
@@ -146,7 +182,7 @@ export default function AddCoin(props:any){
           </Text>
         </View>
 
-      </TouchableOpacity>
+      </TouchableOpacity> 
       </View>) 
 
 }

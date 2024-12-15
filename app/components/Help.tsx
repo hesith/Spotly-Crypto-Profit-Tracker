@@ -14,7 +14,7 @@ export default function Help(){
           style={{width: 100, height: 100}}
         />
       );
-
+    
     return (
         <ScrollView
         contentContainerStyle={{justifyContent:'center', alignItems: "center"}}
@@ -54,6 +54,19 @@ export default function Help(){
                     {'\n'}{'\n'}{'\n'} 
                     
                   </Text>
+
+                  <Text style={[{fontSize: 14},styles.FontSymbolBold, styles.FontBasicColor]}>
+                 Tips on using the App{'\n'}{'\n'}
+                </Text>
+                <Text style={[{fontSize: 12, marginTop: 6},styles.FontSymbol, styles.FontBasicColor]}>
+                ~ Search and select crypto to add them to the Watch List. {'\n'}{'\n'}
+                ~ If the coin you are searching for didn't suggested on search bar, try updating symbol database by clicking 
+                Download Icon next to it. Wait till download is complete and Restart the app to apply changes. {'\n'}{'\n'}
+                ~ Click on a Watch List symbol record to add investment details. {'\n'}{'\n'}
+                ~ Press and hold a Watch List symbol record to select/remove. {'\n'}{'\n'}
+
+                {'\n'}{'\n'}</Text> 
+
 
                   <Text style={[{fontSize: 14},styles.FontSymbolBold, styles.FontBasicColor]}>
                   Couldn't find what you're looking for? Reach out to us, and we'll be happy to assist you! 

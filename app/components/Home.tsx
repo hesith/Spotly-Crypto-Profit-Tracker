@@ -60,7 +60,7 @@ export default function Home(){
     const Download = async () => {
       if(DownloadProgress == 1){
         setDownloadProgress(0);
-        ToastAndroid.showWithGravity("Successfully updated Symbol Database ✅", ToastAndroid.LONG, ToastAndroid.CENTER);
+        ToastAndroid.showWithGravity("Successfully updated Symbol Database", ToastAndroid.LONG, ToastAndroid.CENTER);
       }
       else{
         setDownloadProgress(SrcCoinLore.symbolDownloadProgess);
