@@ -6,6 +6,8 @@ import Home from "./components/Home";
 import LoadingIndicator from "./components/LoadingIndicator";
 import WatchListManager from "./classes/WatchListManager";
 import WatchListSymbolDescription from "./classes/WatchListSymbolDescription";
+import { AppState, AppStateStatus } from "react-native";
+import { showAppOpenAd, loadAppOpenAd } from "./components/AppOpenAd";
 
 export default function Index() {
 
@@ -24,6 +26,22 @@ export default function Index() {
       }
     }
     LoadCoinSource()  
+
+    //
+    const handleAppStateChange = (nextAppState: AppStateStatus) => {
+      if (nextAppState === 'active') {
+        showAppOpenAd(); // Show the ad when the app becomes active
+      }
+    };
+
+    const subscription = AppState.addEventListener('change', handleAppStateChange);
+
+    loadAppOpenAd(); // Load the ad on initial app load
+
+    return () => subscription.remove();
+    //
+
+
   }, []);
 
   if(coinSource != undefined)

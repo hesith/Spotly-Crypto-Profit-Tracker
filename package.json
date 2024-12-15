@@ -48,6 +48,7 @@
     "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "~2.20.2",
     "react-native-gifted-charts": "^1.4.47",
+    "react-native-google-mobile-ads": "^14.7.1",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-pager-view": "6.5.1",
     "react-native-pie-chart": "^3.1.0",
@@ -58,7 +59,8 @@
     "react-native-tab-view": "^4.0.5",
     "react-native-web": "~0.19.13",
     "react-native-webview": "13.12.2",
-    "ts-generic-collections-linq": "^1.0.7"
+    "ts-generic-collections-linq": "^1.0.7",
+    "expo-device": "~7.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

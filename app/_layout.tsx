@@ -8,12 +8,21 @@ import InvestmentDetails from "./components/InvestmentDetails";
 import { styles } from './styles';
 import Index from './index';
 import LoadingIndicator from './components/LoadingIndicator';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Help from './components/Help';
+import mobileAds from 'react-native-google-mobile-ads';
 
 const Stack = createNativeStackNavigator();
 
 export default function RootLayout() {
+
+  useEffect(() => {
+    (async () => {
+      // Initialize the ads
+      await mobileAds().initialize();
+    })();
+}, [])
+
   return (
     <>
     <IconRegistry icons={EvaIconsPack} />
@@ -34,3 +43,4 @@ export default function RootLayout() {
 );
 
 }
+
