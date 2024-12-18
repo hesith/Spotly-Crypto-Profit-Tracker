@@ -1,6 +1,6 @@
 import { useWindowDimensions, View } from "react-native";
 import { styles } from "../styles";
-import { Divider, Input, Text } from "@ui-kitten/components";
+import { Input, Text } from "@ui-kitten/components";
 import CoinDataManager from "../classes/CoinDataManager";
 import { useEffect, useRef, useState } from "react";
 import { useNavigation } from "@react-navigation/native";

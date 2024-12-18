@@ -1,4 +1,4 @@
-import { Spinner, styled, Text } from "@ui-kitten/components";
+import { Text } from "@ui-kitten/components";
 import { View } from "react-native";
 import { styles } from "../styles";
 

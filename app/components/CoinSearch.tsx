@@ -1,5 +1,5 @@
-import { Autocomplete, AutocompleteItem, Icon, IconElement, Input, Text } from "@ui-kitten/components";
-import { Button, useWindowDimensions, View } from "react-native";
+import { Autocomplete, AutocompleteItem, Icon, IconElement, Text } from "@ui-kitten/components";
+import { useWindowDimensions } from "react-native";
 import { styles } from "../styles";
 import { useEffect, useRef, useState } from "react";
 import CoinDataManager from "../classes/CoinDataManager";

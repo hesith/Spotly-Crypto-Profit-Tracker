@@ -1,4 +1,4 @@
-import { ScrollView, Text, TouchableOpacity, useWindowDimensions, View } from "react-native";
+import { ScrollView, Text, useWindowDimensions, View } from "react-native";
 import AddCoin from "./AddCoin";
 import { useEffect, useState } from "react";
 import CoinDataManager from "../classes/CoinDataManager";

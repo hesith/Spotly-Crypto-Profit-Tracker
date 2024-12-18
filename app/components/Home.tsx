@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TabView, SceneMap, TabBar, TabBarItem } from 'react-native-tab-view';
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { TouchableOpacity, View, useWindowDimensions, Image, ToastAndroid } from 'react-native';
 import WatchList from './WatchList';
 import CoinSearch from './CoinSearch';

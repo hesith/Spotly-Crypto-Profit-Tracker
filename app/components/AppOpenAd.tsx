@@ -1,4 +1,4 @@
-import { AdEventType, AppOpenAd, BannerAd, BannerAdSize, TestIds } from "react-native-google-mobile-ads";
+import { AdEventType, AppOpenAd, TestIds } from "react-native-google-mobile-ads";
 
 
 let appOpenAd: AppOpenAd | null = null;

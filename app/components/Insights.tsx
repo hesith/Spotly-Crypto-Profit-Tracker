@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { styles } from "../styles";
-import { ScrollView, Text, View, useWindowDimensions } from "react-native";
+import { ScrollView, Text, useWindowDimensions } from "react-native";
 import Pie from "./Pie";
 import HorizontalBar from "./HorizontalBar";
 import PieChartSymbol from "../classes/PieChartSymbol";

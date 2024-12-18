@@ -1,7 +1,7 @@
-import { Spinner, Button, Icon, IconElement } from "@ui-kitten/components";
-import { Animated, TouchableWithoutFeedback, View, Text, useWindowDimensions, ScrollView, Linking } from "react-native";
+import { Button, Icon, IconElement } from "@ui-kitten/components";
+import { View, Text, useWindowDimensions, ScrollView, Linking } from "react-native";
 import { styles } from "../styles";
-import React, { useState } from "react";
+import React from "react";
 import Constants from "expo-constants";
 
 export default function Help(){

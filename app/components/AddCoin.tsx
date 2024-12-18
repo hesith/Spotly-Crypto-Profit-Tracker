@@ -1,5 +1,5 @@
-import { Button, Icon, IconElement, Input, Text } from "@ui-kitten/components";
-import { Pressable, TouchableOpacity, useWindowDimensions, Vibration, View } from "react-native";
+import { Icon, IconElement, Text } from "@ui-kitten/components";
+import { TouchableOpacity, useWindowDimensions, Vibration, View } from "react-native";
 import {styles} from '../styles';
 import WatchListManager from "../classes/WatchListManager";
 import { useState } from "react";
