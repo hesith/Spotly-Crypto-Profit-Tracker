@@ -1,6 +1,16 @@
-# Welcome to your Expo app 👋
+# Spotly - Crypto Profit Tracker
+[Download from Google Play Store](https://play.google.com/store/apps/details?id=com.phantomHookLabs.SpotCryptoProfitTracker)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+![Logo](https://github.com/hesith/Spotly-Crypto-Profit-Tracker/blob/master/assets/images/icon.png)
+
+Spotly is a simple and efficient tool for tracking cryptocurrency investments. It helps you monitor your cryptocurrency investments, calculate profits, and gain valuable insights on your portfolio with useful charts.
+
+This project is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app). 
+List of technologies used in development is listed below.
+- TypeScript - Programming Language
+- Expo - Development framework
+- React Native - Front End framework
+- Coin Lore - Market Data API
 
 ## Get started
 
@@ -23,28 +33,7 @@ In the output, you'll find options to open the app in a
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+You can start developing by editing the files inside the **app** directory.
 
-## Get a fresh project
 
-When you're ready, run:
 
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
