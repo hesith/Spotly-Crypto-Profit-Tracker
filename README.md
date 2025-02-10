@@ -37,11 +37,9 @@ You can start developing by editing the files inside the **app** directory.
 
 # Screenshots
 
-![Screenshot1](https://github.com/hesith/Spotly-Crypto-Profit-Tracker/blob/master/screenshots/Screenshot_2024-12-15-13-28-07-031_com.phantomHookLabs.SpotCryptoProfitTracker.jpg)
+![Screenshot1](https://github.com/hesith/Spotly-Crypto-Profit-Tracker/blob/master/screenshots/ss.png)
 
-![Screenshot2](https://github.com/hesith/Spotly-Crypto-Profit-Tracker/blob/master/screenshots/Screenshot_2024-12-15-13-29-07-901_com.phantomHookLabs.SpotCryptoProfitTracker.jpg)
 
-![Screenshot3](https://github.com/hesith/Spotly-Crypto-Profit-Tracker/blob/master/screenshots/Screenshot_2024-12-15-13-26-14-575_com.phantomHookLabs.SpotCryptoProfitTracker.jpg)
 
 
 
